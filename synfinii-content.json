@@ -1,0 +1,1664 @@
+{
+  "thoughtspotVideo": "https://salespagehq-my.sharepoint.com/personal/rkelly_synfinii_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Frkelly_synfinii_com%2FDocuments%2FRecordings%2FUnlock%20the%20Power%20of%20Data%20ThoughtSpot%20Training%20for%20Synfinii-20260320_110124-Meeting%20Recording%2Emp4",
+  "systemPrompt": "You are a helpful assistant for the Synfinii University Training Dashboard — an interactive learning application built for Synfinii users. You can answer questions both about the Synfinii platform itself and about how to use this learning application.\n\nABOUT THE LEARNING APPLICATION:\n- The dashboard has five navigation views: Overview, Modules, Assistant, Learning Paths, and Reports (admin only).\n- Overview shows overall progress, per-track completion, and an \"Up next\" prompt.\n- Modules lets users browse and work through learning modules organized into four role tracks.\n- Learning Paths shows a decision tree to help users choose the right track, plus descriptions of all tracks.\n- Assistant is this AI chat interface.\n- Reports is only visible when signed in as the admin account and shows all user progress plus CSV export options.\n\nACCOUNTS & SIGN-IN:\n- Users create an account with a username and a 4-digit PIN. Returning users sign in with the same credentials.\n- Sessions persist — returning to the dashboard on the same device will auto sign you in.\n- To sign out, click the \"Sign out\" button in the top-right header.\n- The special username \"admin\" unlocks the Reports tab for viewing all learner progress.\n- First-time users are shown the Learning Paths screen automatically on first sign-in.\n\nHOW MODULES WORK:\n- Modules unlock sequentially — you must complete the previous module before the next one becomes available.\n- Each module follows a flow: Watch video (if required) → Read all lessons → Take the quiz → Complete activity (if present).\n- Videos must be confirmed watched before lessons unlock. All lessons must be read before the quiz unlocks. The quiz must be completed before the activity unlocks.\n- To mark a lesson read, click \"Mark as read\" at the bottom of each lesson.\n- The quiz requires you to select an answer and click \"Check answer\" for each question. Once all questions are revealed, click \"Mark module complete\" or \"Continue to activity\" if an activity is present.\n- Activities require a 70% score to pass. Failed activities can be retried immediately.\n- Activity types include: scenario-based decisions, drag-and-drop categorisation, and fill-in-the-blank.\n- Completed modules show a green checkmark. Locked modules are grayed out.\n\nPROGRESS & EXPORT:\n- Progress is saved automatically to your account and persists across sessions and devices.\n- In the Overview tab, click \"Download my progress\" to export your own completion data as a CSV.\n- As admin, use the Reports tab to see all users and export Summary or Detailed CSVs. The detailed CSV includes activity scores.\n- Exports open as a copy-to-clipboard modal — copy the text, paste into Notepad or TextEdit, save as .csv, and open in Excel.\n\nFOUR ROLE TRACKS:\n- Data Steward (DS): 6 modules covering platform governance, entity management, data quality, rules, and audit.\n- Resolution Services (RS): 5 modules covering trade processing, the resolution queue, entity matching, hierarchy resolution, and promotion.\n- Sales Reporting (SR): 5 modules covering ThoughtSpot dashboards, segmentation, report building, validation, and scheduling.\n- Administrator (AD): 6 modules covering platform architecture, RBAC/security, feed management, rules engine, monitoring, and audit readiness.\n\nSYNFINII PLATFORM CONCEPTS:\nAUM (Assets Under Management), Flows (purchases minus redemptions), Entity Management (firms/offices/advisors hierarchy), Matching & Apply system (resolves candidate records against MASTER records using field weights, thresholds, and deterministic rules to produce authoritative master records), Resolution Queue / Resolution Cockpit (unmatched trades needing manual attribution — Operations > Resolution; has a 'Resolved Today' tab and threshold filtering), Smart Suggestions (automated match candidates in the cockpit using fuzzy, exact alias, pattern, and CCOP matching strategies), CLIENT_NOT_FOUND resolution modes (Create Alias = permanent mapping; Reassign Alias = one-time override; Default to House = route to office house account), ThoughtSpot (AI search analytics — Live Boards with multi-level drill-down, Spotter natural language AI search, AI Highlights for automated insight surfacing, threshold alerts, TML for cross-org model deployment), SOX ITGCs (Change Management, Access Control, System Availability), three environments (Dev→UAT→Production), four roles (Data Steward owns data, Resolution Services resolves orphan trades, Sales Reporting builds reports, Administrator owns system config and ThoughtSpot data workspace), 10-stage financial processing pipeline plus Stage 0 PRE_INIT (Stage 0 pre-init exclusion → Stage 1 init → Stage 2 source validation → Stage 3 product ID → Stage 4 market product ID → Stage 5 transaction classification → Stage 6 currency → Stage 7 valuation → Stage 8 alias remapping → Stage 9 client attribution → Stage 10 business rules), Workspace/Release system (Workspaces are transient dev environments; Releases are versioned with Type 2 SCD; REPLACE strategy replaces all rules; AUGMENT strategy merges rules; two-level priority: Release priority controls order between releases, rule priority controls order within a release).\n\nBe encouraging, clear, and concise — under 200 words per response.",
+  "tracks": {
+    "ds": {
+      "label": "Data Steward",
+      "icon": "DS",
+      "color": "#185FA5",
+      "bg": "#E6F1FB",
+      "border": "#B5D4F4",
+      "desc": "Own and curate mastered data. Monitor quality, resolve exceptions, and enforce rules.",
+      "modules": [
+        {
+          "code": "DS 101",
+          "title": "Platform & Governance Foundation",
+          "duration": "1.5h",
+          "videoUrl": null,
+          "desc": "Navigate Synfinii's key data domains and understand the data flow architecture.",
+          "lessons": [
+            {
+              "title": "What is Synfinii?",
+              "content": "Synfinii is a data management, reporting, and analytics platform purpose-built for asset managers. Its tagline — 'Synthesize Data. Activate Outcomes.' — describes its core mission: take fragmented, conflicting data from multiple source systems and produce a single, high-integrity master record that every team can trust.\n\nWithout Synfinii, data about the same advisor might exist in three different systems with three different values. Synfinii resolves those conflicts into one authoritative answer — the 'Source of Truth.'"
+            },
+            {
+              "title": "The five core responsibilities",
+              "content": "Synfinii serves five functions:\n\n1. Data Integrity & Source of Truth — reconciling conflicting data from Salesforce, SalesConnect, Broadridge, and third-party providers into a single master record.\n\n2. Complex Financial Attribution — automatically mapping trades and assets to the correct advisors and firms.\n\n3. Regulatory Compliance & Auditability — maintaining a transparent audit trail of every data decision for SEC/FINRA reviews.\n\n4. Self-Service Business Intelligence — AI-powered search analytics via ThoughtSpot so teams can query data without IT help.\n\n5. Seamless System Interoperability — feeding clean, mastered data to downstream systems like SalesPage for compensation and CRM."
+            },
+            {
+              "title": "The three data domains",
+              "content": "As a Data Steward, you'll work across three interconnected domains:\n\nEntity — the 'Who.' Firms, offices, and individual advisors. Every financial transaction must be linked to a valid entity record to be reported on.\n\nFinancial — the 'How Much.' Trades, AUM (Assets Under Management), and flows (money moving in and out of products). Financial data is only meaningful when correctly attributed to the right entity.\n\nProduct — the 'What.' Mutual funds, ETFs, share classes, and other investment vehicles. Each product has identifiers (CUSIPs, ISINs, tickers) that link financial transactions to the correct investment."
+            },
+            {
+              "title": "The data flow architecture",
+              "content": "Data in Synfinii follows a structured pipeline:\n\nIngest → The system receives raw files from providers via FTP, S3, API, or manual upload. Every raw record is archived immediately — this is your audit safety net.\n\nValidate → The data passes through a scrubbing layer that checks for formatting errors, missing identifiers, and invalid values.\n\nMaster → The matching and Apply system reconciles data from multiple sources, resolves conflicts, and produces the master record.\n\nPromote → Clean, mastered data flows downstream to reporting tables and to SalesPage for compensation and CRM."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "Synfinii describes itself as the 'Source of Truth.' What does this mean in practice?",
+              "opts": [
+                "It is the only system allowed to store data",
+                "It reconciles data from multiple sources into a single validated master record every department can trust",
+                "It automatically deletes duplicates from all connected systems",
+                "It generates financial reports without human input"
+              ],
+              "a": 1,
+              "exp": "Synfinii reconciles fragmented data from sources like Salesforce, SalesConnect, and third-party providers into one high-integrity master record."
+            },
+            {
+              "q": "Which best describes the data flow architecture in Synfinii?",
+              "opts": [
+                "Data enters once and is never updated",
+                "Raw data is ingested, validated, mastered, and then promoted to downstream systems",
+                "Data flows directly from SalesPage into Synfinii",
+                "All data is manually entered by Data Stewards"
+              ],
+              "a": 1,
+              "exp": "Synfinii ingests raw data, validates it, masters it through the matching and Apply system, and promotes clean data downstream."
+            },
+            {
+              "q": "What are the three key data domains a Data Steward must understand?",
+              "opts": [
+                "Sales, Marketing, Finance",
+                "Entity, Financial, and Product",
+                "Import, Export, and Archive",
+                "Advisor, Client, and Territory"
+              ],
+              "a": 1,
+              "exp": "Entity (firms, offices, advisors), Financial (trades, AUM, flows), and Product (mutual funds, ETFs, share classes) are the three core domains."
+            }
+          ]
+        },
+        {
+          "code": "DS 102",
+          "title": "Entity Master Data Management",
+          "duration": "1h",
+          "videoUrl": null,
+          "desc": "Create and maintain client entity records with accuracy and completeness.",
+          "lessons": [
+            {
+              "title": "What is an entity in Synfinii?",
+              "content": "An entity is any real-world party that interacts with investment products — a firm, an office, or an individual advisor. Synfinii maintains a three-level hierarchy:\n\nNational Account (Grandparent) → e.g. Merrill Lynch nationwide\nRegional Office (Parent) → e.g. Merrill Lynch New York\nIndividual Advisor (Child) → a specific registered rep\n\nThis hierarchy enables roll-up reporting — a sale at the New York office correctly attributes up to the national Merrill Lynch account."
+            },
+            {
+              "title": "Creating a new entity record",
+              "content": "When creating a new advisor record, you must capture:\n\nMandatory identifiers — CRD number, Rep Code, and Tax ID. These are the 'keys' used to match incoming trades to this advisor. Missing any one of them will cause attribution failures.\n\nHierarchy link — which office does this advisor belong to? Without this link, roll-up reporting breaks.\n\nStatus — is this advisor active, inactive, or terminated?\n\nAll mandatory fields must be populated before the record can be promoted to the master tables."
+            },
+            {
+              "title": "Soft matches and deduplication",
+              "content": "When a new record enters the system, Synfinii's matching algorithm compares it against existing records:\n\nHard match (auto-link) — the similarity score is at or above the auto-match threshold (default: 90). Records are automatically linked to the existing master.\n\nSoft match (review queue) — the score falls between the potential match threshold (default: 60) and the auto-match threshold. These are flagged for Data Steward review.\n\nYour job: review the evidence and decide — merge or keep separate. Every merge decision is logged in the audit trail with your name and timestamp."
+            },
+            {
+              "title": "Cross-referencing identifiers",
+              "content": "Synfinii's identifier cross-referencing is like a 'Rosetta Stone' — it maintains an alias table so that when Broadridge sends a trade with one identifier and SalesPage expects a different one, the system bridges them automatically.\n\nAliases are source-specific: the same external code can map to different advisors depending on which data provider sent it. Identifiers include: CRD number, NPN, Internal IDs from Salesforce or SalesPage, and source-specific Rep Codes. You maintain the accuracy of this alias library as part of your Data Steward role."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "When creating a new advisor record, which field is most critical for linking that advisor to financial transactions?",
+              "opts": [
+                "Email address",
+                "Office location",
+                "Industry identifier (e.g. CRD or Rep Code)",
+                "Date of hire"
+              ],
+              "a": 2,
+              "exp": "CRD numbers and Rep Codes are the primary keys used to match incoming financial transactions to the correct advisor."
+            },
+            {
+              "q": "A new firm has branches in three cities. How should this be structured in Synfinii?",
+              "opts": [
+                "One record with all three cities",
+                "A parent record for the national firm with child records for each branch",
+                "Three separate unlinked records",
+                "Only the headquarters"
+              ],
+              "a": 1,
+              "exp": "Parent-child hierarchy enables roll-up reporting. Sales at a local branch correctly attribute up to the national account."
+            },
+            {
+              "q": "What is a 'soft match' in Synfinii?",
+              "opts": [
+                "A permanently merged record",
+                "A record that scores between the potential match and auto-match thresholds, requiring human review",
+                "A record from a low-quality source",
+                "An advisor who hasn't logged in recently"
+              ],
+              "a": 1,
+              "exp": "Soft matches are potential duplicates requiring a Data Steward to review and decide — merge or keep separate."
+            }
+          ]
+        },
+        {
+          "code": "DS 201",
+          "title": "Data Quality Monitoring & Triage",
+          "duration": "2h",
+          "videoUrl": null,
+          "desc": "Use the Data Quality Dashboard to identify, prioritize, and triage exceptions.",
+          "lessons": [
+            {
+              "title": "The Data Quality Dashboard",
+              "content": "The Data Quality Dashboard is your primary monitoring tool. It surfaces exceptions — records that fail completeness, consistency, validity, or timeliness checks — and lets you filter, prioritize, and assign them for resolution. Your daily routine as a Data Steward typically starts here."
+            },
+            {
+              "title": "Triage: prioritizing what matters most",
+              "content": "Priority 1 — Active high-volume advisors with missing identifiers. Their trades can't be attributed, directly impacting AUM reporting and compensation.\n\nPriority 2 — Broken hierarchy links. These cause roll-up reporting failures at the national account level.\n\nPriority 3 — Duplicate records on active entities. These inflate headcount and can double-count AUM.\n\nPriority 4 — Formatting issues on low-activity or inactive records. Real but low-urgency."
+            },
+            {
+              "title": "Detecting patterns in exceptions",
+              "content": "A spike in exceptions from a single source feed usually means something changed upstream — the provider altered their file format, sent incomplete data, or introduced a new code the system doesn't recognize.\n\nAlways ask: is this one record's problem, or is this 50 records' problem with the same root cause? The answer determines whether you fix one record or escalate a systematic fix."
+            },
+            {
+              "title": "Using filters and search",
+              "content": "Filter by source — isolate all exceptions from a specific feed\nFilter by error type — group by missing Tax ID, duplicate record, invalid identifier\nFilter by entity type — focus on firms, offices, or advisors separately\nFilter by severity — show only P1 and P2 issues\nSort by date — see most recent exceptions first\nSearch by entity name or identifier — jump to a specific firm or advisor"
+            }
+          ],
+          "quiz": [
+            {
+              "q": "You open the Data Quality Dashboard and see 200 exceptions. What is your first step?",
+              "opts": [
+                "Resolve all 200 immediately",
+                "Filter and prioritize by severity, source, and business impact before resolving",
+                "Escalate all 200 to IT immediately",
+                "Ignore them until the number exceeds 500"
+              ],
+              "a": 1,
+              "exp": "Effective triage means filtering by severity and impact first."
+            },
+            {
+              "q": "The dashboard shows a spike in exceptions from a specific source feed. What does this likely indicate?",
+              "opts": [
+                "Spikes are normal — no action needed",
+                "A change in the source feed's format or data quality that needs investigation",
+                "All records from that source should be deleted",
+                "The feed has been permanently disconnected"
+              ],
+              "a": 1,
+              "exp": "A sudden spike from one source usually means something changed upstream."
+            },
+            {
+              "q": "Which exception type would you prioritize most urgently?",
+              "opts": [
+                "Minor formatting inconsistency on an archived record",
+                "Missing Tax ID on an active high-volume advisor whose trades are currently unattributed",
+                "Outdated phone number on a low-activity account",
+                "Duplicate record for a firm that closed two years ago"
+              ],
+              "a": 1,
+              "exp": "Missing Tax IDs on active advisors directly impact financial attribution."
+            }
+          ],
+          "activities": [
+            {
+              "type": "dragdrop",
+              "title": "Exception triage prioritisation",
+              "intro": "Your Data Quality Dashboard has just loaded with the following exceptions. Assign each one to the correct priority level based on what you learned about triage.",
+              "categories": [
+                "Priority 1",
+                "Priority 2",
+                "Priority 3",
+                "Priority 4"
+              ],
+              "items": [
+                {
+                  "label": "Missing Tax ID on an active advisor processing $2M in weekly trades",
+                  "correct": "Priority 1"
+                },
+                {
+                  "label": "Broken parent-child link on a national Merrill Lynch account",
+                  "correct": "Priority 2"
+                },
+                {
+                  "label": "Duplicate record found for an active firm with 50 linked advisors",
+                  "correct": "Priority 3"
+                },
+                {
+                  "label": "Phone number formatted incorrectly on an account closed 18 months ago",
+                  "correct": "Priority 4"
+                },
+                {
+                  "label": "Missing CRD number on a high-volume advisor — trades currently unattributed",
+                  "correct": "Priority 1"
+                },
+                {
+                  "label": "Office hierarchy link broken — roll-up reporting failing for a regional account",
+                  "correct": "Priority 2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "DS 202",
+          "title": "Data Quality Resolution",
+          "duration": "1.5h",
+          "videoUrl": null,
+          "desc": "Merge duplicates, correct invalid attributes, and override soft matches.",
+          "lessons": [
+            {
+              "title": "The three resolution actions",
+              "content": "1. Correction — directly update a field value in the record. The correction updates the master record and is logged with your name, timestamp, and before/after values.\n\n2. Merge — combine two records that represent the same entity. One record becomes the 'winner' (its data is retained) and one is absorbed. All historical transactions linked to the absorbed record are re-attributed to the winner.\n\n3. Override — temporarily suppress a matching or Apply decision for a specific record without changing the underlying configuration."
+            },
+            {
+              "title": "Merging records: choosing the winner",
+              "content": "Before merging, ask:\n— Which record has more complete data?\n— Which has higher-authority identifiers (CRD vs. a source-specific code)?\n— Which has more linked transactions?\n— Which was created from a more reliable source?\n\nRemember: you can un-merge. If you merge incorrectly, the un-merge function restores both records to their pre-merge state. Use it promptly."
+            },
+            {
+              "title": "Corrections vs. overrides",
+              "content": "A correction changes the actual data in a record permanently. Use when a value is genuinely wrong — a mis-keyed Tax ID, a name spelled incorrectly.\n\nAn override suppresses a matching or Apply decision for a specific record without touching the underlying data or configuration. Use when the system's automated decision is correct in general but wrong for this specific case."
+            },
+            {
+              "title": "Audit trail discipline",
+              "content": "Every resolution action you take generates an immutable audit log entry recording what changed, who made the change, when, and why.\n\nBest practice: always enter a brief reason with your resolution actions. 'Merged per CRD cross-reference — confirmed same advisor at two offices' is far more defensible than a blank reason field."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "Before merging two advisor records, what must you verify?",
+              "opts": [
+                "Both records have identical email addresses",
+                "Which record is the 'winner' — the one whose data will be retained in the master",
+                "That the advisor has consented to the merge",
+                "Both records were created on the same date"
+              ],
+              "a": 1,
+              "exp": "Choosing the wrong winner corrupts the master record. Review data quality, source authority, and completeness before deciding."
+            },
+            {
+              "q": "After merging, a colleague confirms the advisors are actually different people. What do you do?",
+              "opts": [
+                "It's irreversible — nothing can be done",
+                "Submit a service request to IT to delete both records",
+                "Use the un-merge function to restore both records to their pre-merge state",
+                "Create a brand new record for one advisor"
+              ],
+              "a": 2,
+              "exp": "Synfinii's un-merge function reverses an incorrect merge and restores both records."
+            },
+            {
+              "q": "What is the key difference between a correction and an override?",
+              "opts": [
+                "They are the same action",
+                "A correction updates the data permanently; an override suppresses a system decision without changing the underlying data or configuration",
+                "An override is permanent; a correction is temporary",
+                "Only IT Administrators can make corrections"
+              ],
+              "a": 1,
+              "exp": "Overrides redirect automated decisions for specific cases without touching underlying data or configuration. Corrections update the actual data."
+            }
+          ]
+        },
+        {
+          "code": "DS 301",
+          "title": "Mastering Rules & Configuration",
+          "duration": "1h",
+          "videoUrl": null,
+          "desc": "Understand how matching and Apply configurations work and when to escalate changes.",
+          "lessons": [
+            {
+              "title": "How the matching and Apply system works",
+              "content": "Synfinii resolves conflicts and creates authoritative master records through a two-step process: Matching and Apply.\n\nMatching — when candidate records arrive from a source, the matching engine compares them against existing MASTER records using configurable match configurations. Each configuration defines:\n— Field weights: how much each field (name, address, financial identifier, email) contributes to a similarity score\n— Thresholds: scores at or above the auto-match threshold (default: 90) auto-link; scores between the potential match threshold (default: 60) and 90 go to the manual review queue; scores below 60 are treated as new records\n— Deterministic rules: trusted identifiers (like a CRD number) that produce an automatic 100% match when present\n— Blocking rules: reduce the search space before scoring (e.g., only compare FIRM candidates to FIRM masters)\n\nApply — once matching is complete, the Apply configuration controls what happens to the MASTER record:\n— Which fields get updated from the candidate\n— Which fields are protected and never overwritten\n— Source priority: when multiple candidates from different sources conflict, the source with the highest priority 'wins' for that field\n— Whether changes require human approval through the Apply Review queue\n\nThe result is a MASTER record — the single authoritative version with each field populated by the most trusted, most current value available."
+            },
+            {
+              "title": "Rule types and their impact",
+              "content": "Business rules in Synfinii inject custom logic at specific points in the data processing lifecycle without requiring code changes. Rules are authored in Workspaces and deployed to production through Releases.\n\nEach rule has three components:\n\nBinding — specifies where and when the rule executes: a Domain Object (e.g., financial_candidate, profile) and a Hook Point (the lifecycle moment). The most common hook point is FINANCIAL_STAGE_10_FINAL_RULES (after all 9 earlier pipeline stages are complete). Rules can also fire at FINANCIAL_STAGE_0_PRE_INIT (before processing begins — to filter or exclude records) and on PRE_CREATE / POST_CREATE lifecycle events for entities.\n\nConditions — determine which records within a batch the rule fires on. Conditions use AND logic. Types include: Audience Selection (JSON Logic expressions like 'gross_amount > 1,000,000'), Pattern Selection (regex matching), Record Selection (batch lookup against another table), and Watchlist Membership.\n\nActions — execute on all records that passed conditions. Types include: Set Field (update a field value using a constant, template, or field copy), Create Work Item (route for human review with configurable priority), Watchlist Action (add/remove from monitoring lists), Service Action (create or update records in a related table), and Exclude Candidate (only at PRE_INIT — permanently excludes matching candidates from all further processing).\n\nTwo-level priority system: Rules execute in a specific order controlled at two levels. First, Release priority determines which Release runs first when multiple Releases are active (e.g., a 'Hotfixes' Release with priority 100 executes before 'Base Rules' with priority 0). Second, within each Release, each rule has its own priority that controls the order within that Release. This composable system lets teams layer rule sets — a hotfix Release can sit on top of a base Release without replacing it.\n\nAs a Data Steward, you identify when rules need to change — the Administrator implements the change through the Workspace/Release system."
+            },
+            {
+              "title": "Identifying when a rule or configuration needs to change",
+              "content": "Signs that a matching or Apply configuration needs review:\n— The same type of error recurs repeatedly from the same source\n— A source now consistently produces wrong values in a specific field\n— A new source hasn't been calibrated yet\n— Match scores are consistently near the threshold, causing too many manual reviews\n— A business change means existing logic no longer applies\n\nSigns that a business rule needs review:\n— The same type of processing exception recurs repeatedly\n— Records that should be flagged are passing through without review\n— Records that should not be flagged are generating unnecessary work items\n— A new data source introduces patterns the existing rules don't handle\n\nDocument clearly: what the current behavior produces, what it should produce, how many records are affected, and the business impact. Escalate to the IT Administrator to implement changes."
+            },
+            {
+              "title": "The exception queue as feedback",
+              "content": "Think of the Resolution Cockpit not just as a task list but as a feedback mechanism. Every error group tells you something about the health of your data pipeline.\n\nHigh volume of PRODUCT_NOT_FOUND for a specific source → a fund code or CUSIP may have changed with the provider; add the new alias to the existing product record\n\nHigh volume of CLIENT_NOT_FOUND for a new source → client aliases haven't been set up for this source code yet; the initial alias-building period is normal\n\nSudden spike in FIRM_NOT_FOUND after a nightly cycle → a provider may have changed their firm codes; check if the source code's executing_at setting is appropriate\n\nRecurring TRANSACTION_CODE_NOT_FOUND for specific codes → provider added new transaction types; create source-specific transaction code mappings\n\nA sudden increase in any error type after a nightly cycle → something in that cycle's source file format or content may have changed; check the ingestion logs"
+            }
+          ],
+          "quiz": [
+            {
+              "q": "The matching system uses 'field weights.' What determines how much weight a field carries?",
+              "opts": [
+                "How recently it was updated",
+                "How reliably and distinctively that field identifies a unique entity — configured per match setup",
+                "The number of records that contain it",
+                "Whether it is a mandatory field"
+              ],
+              "a": 1,
+              "exp": "Field weights are configured in the match configuration and reflect how much each field (name, address, financial identifier, email) contributes to the overall similarity score."
+            },
+            {
+              "q": "You notice a matching configuration consistently produces incorrect auto-links. What is the correct course of action?",
+              "opts": [
+                "Manually fix each affected record",
+                "Document the pattern, escalate a configuration change request to the IT Administrator, and continue monitoring",
+                "Delete all affected records",
+                "Disable the matching configuration entirely"
+              ],
+              "a": 1,
+              "exp": "Data Stewards identify matching and rule problems; IT Administrators implement configuration changes."
+            },
+            {
+              "q": "When the matching engine cannot reach the auto-match threshold, what happens?",
+              "opts": [
+                "The system randomly selects one value",
+                "The most recent value always wins",
+                "Records scoring above the potential match threshold go to the Match Review Queue for Data Steward review",
+                "The field is left blank"
+              ],
+              "a": 2,
+              "exp": "Records scoring between the potential match and auto-match thresholds go to the review queue. Data Stewards review, make the call, and their decisions are logged."
+            }
+          ]
+        },
+        {
+          "code": "DS 302",
+          "title": "Audit & Data Lineage Tracking",
+          "duration": "1h",
+          "videoUrl": null,
+          "desc": "Use the audit log to trace data changes for compliance and troubleshooting.",
+          "lessons": [
+            {
+              "title": "The audit trail in Synfinii",
+              "content": "Synfinii maintains a permanent, immutable audit trail of every data change. It records what changed, who changed it, when, how, and why. As a Data Steward, you both contribute to this trail and query it when you need to answer 'why did this data change?' questions."
+            },
+            {
+              "title": "Data lineage: tracing a value's journey",
+              "content": "Data lineage is the traceable history of a data point — from its original source system, through every transformation and decision, to its current state in the master record.\n\nExample: An address field shows '456 Oak Avenue.' Lineage lets you trace: which source sent it, when, which source 'won' the candidate battle through the Apply process, and whether any manual overrides were applied."
+            },
+            {
+              "title": "When you'll need the audit log",
+              "content": "Troubleshooting — 'This advisor's address changed and trades aren't matching. What happened?'\n\nCompliance review — 'Show me all changes made to advisor records in Q3.'\n\nEscalation support — When you escalate a configuration change request, the audit trail showing the pattern of incorrect decisions over time is your strongest supporting evidence."
+            },
+            {
+              "title": "Compliance verification using lineage",
+              "content": "SOX requires that you can demonstrate:\n— Data changes were made by authorized personnel only\n— Changes followed a documented and approved process\n— No unauthorized modifications were made to financial data\n— A complete, unbroken chain of custody exists for all master records\n\nYour audit trail discipline — always entering reasons, following the resolution SOP — directly supports the firm's ability to pass SOX audits."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "A regulator asks why the address for Firm X changed on March 15. Where do you find this answer?",
+              "opts": [
+                "The data import log",
+                "The audit trail — which records who changed it, what it was before, what it is now, and when",
+                "The resolution queue history",
+                "You would need to contact the data provider"
+              ],
+              "a": 1,
+              "exp": "Synfinii's audit trail records every data change with full before/after values, timestamps, and the user or system responsible."
+            },
+            {
+              "q": "What is 'data lineage' and why does it matter for compliance?",
+              "opts": [
+                "The age of a data record",
+                "The traceable history of a data point from its original source through every transformation to its current state",
+                "The process of importing data from providers",
+                "A measure of data completeness"
+              ],
+              "a": 1,
+              "exp": "Data lineage shows the full journey of a data point. For SOX compliance, this traceable history is the evidence that data decisions were made transparently."
+            },
+            {
+              "q": "During an audit, you're asked to prove only authorized users accessed compensation data in Q4. What provides this evidence?",
+              "opts": [
+                "The data quality dashboard",
+                "The access and audit logs showing user activity, timestamps, and data accessed",
+                "The resolution queue",
+                "The nightly cycle report"
+              ],
+              "a": 1,
+              "exp": "Access logs are a core SOX IT General Control deliverable."
+            }
+          ]
+        }
+      ]
+    },
+    "rs": {
+      "label": "Resolution Services",
+      "icon": "RS",
+      "color": "#0F6E56",
+      "bg": "#E1F5EE",
+      "border": "#9FE1CB",
+      "desc": "Reconcile unmatched trades, assets, and money flows to the correct master record.",
+      "modules": [
+        {
+          "code": "RS 101",
+          "title": "Transactional Data Flow & Error Types",
+          "duration": "1.5h",
+          "videoUrl": null,
+          "desc": "Understand how trade data flows into Synfinii and what causes attribution failures.",
+          "lessons": [
+            {
+              "title": "The financial processing pipeline",
+              "content": "Every trade passes through a structured 10-stage processing pipeline before it can be reported on. There is also a Stage 0 that runs before the pipeline begins:\n\nStage 0: Pre-Initialization Rules — rules that can exclude a candidate entirely before any processing begins (no error queue entry, no fact record).\nStage 1: Initialization — prepares the processing batch, adds output columns.\nStage 2: Source Code Validation — verifies the source code is configured.\nStage 3: Product Identification — matches CUSIP, ticker, or fund code to a product class (for trade and account candidates).\nStage 4: Market Product Identification — matches Morningstar category or portfolio classification to a market product (for market flow and market position candidates).\nStage 5: Transaction Classification — maps the transaction code to a trade type and trade class.\nStage 6: Currency Resolution — ensures every record has a resolved currency, defaulting to USD.\nStage 7: Valuation — calculates gross amounts using product prices and FX rates.\nStage 8: Alias Remapping — normalises firm, office, and qualifier codes before client attribution.\nStage 9: Client Attribution — resolves the Firm → Office → Contact hierarchy.\nStage 10: Business Rules — applies any custom processing logic from the active release.\n\nIf any stage fails, the trade enters the Resolution Queue with a specific error code identifying exactly where it stopped."
+            },
+            {
+              "title": "Common error types",
+              "content": "The financial processing pipeline generates specific error codes when a record cannot be processed. These are the exact error codes you will see in the Resolution Cockpit:\n\nPRODUCT_NOT_FOUND — the product identifiers (CUSIP, ticker, or fund code) don't match any product in the master. This is the most common reference data error.\n\nMARKET_PRODUCT_NOT_FOUND — for market flow and market position candidates, the Morningstar category or portfolio classification couldn't be matched to a known market product.\n\nTRANSACTION_CODE_NOT_FOUND — the transaction code in the file isn't mapped to a trade type and trade class for this source.\n\nSOURCE_CODE_NOT_FOUND — the source code on the candidate doesn't match any configured source code. This is an administrative configuration error — no resolution is available from the cockpit.\n\nCLIENT_NOT_FOUND — the rep/contact code couldn't be matched to a client profile. The most complex error to resolve, with three available resolution modes: Create Alias, Reassign Alias, and Default to House.\n\nFIRM_NOT_FOUND — the firm or office codes couldn't be matched to a firm profile. Also generated for office-level failures when the source is configured with executing_at = 'OFFICE'. OFFICE_NOT_FOUND as a standalone code is deprecated.\n\nACCOUNT_NOT_FOUND — the account number wasn't recognized.\n\nACCOUNTCLIENT_NOT_FOUND — the account exists but has no account-to-client relationship.\n\nPRODUCT_PRICE_NOT_FOUND — no NAV or price record exists for the product on the trade date.\n\nCURRENCY_CODE_NOT_FOUND — the currency code doesn't exist in the currency table.\n\nCURRENCY_VALUE_NOT_FOUND / FX_RATE_NOT_FOUND — no exchange rate exists for the currency pair on the required date. These refer to the same condition."
+            },
+            {
+              "title": "Why raw archiving matters",
+              "content": "Before processing begins, Synfinii archives every incoming record in its raw, unmodified form.\n\nAudit safety net — if a question arises about what came in from a source, the raw archive settles it definitively.\n\nError investigation — the raw archive shows exactly what the source sent, helping you understand whether the error is in Synfinii's configuration or in the source file.\n\nThink of the raw archive as the 'before' photo. It never changes."
+            },
+            {
+              "title": "Your role in the pipeline",
+              "content": "You are the human checkpoint in Synfinii's automated pipeline. Your core responsibilities:\n— Investigate why a trade failed to process\n— Research the correct attribution using Synfinii's lookup tools\n— Manually link the trade to the correct entity\n— Promote the resolved trade back into the pipeline\n— Escalate to the Data Steward when the root cause is a missing master record\n— Document your resolution with a clear reason\n\nKey navigation for your daily work:\nFinancial > Candidates > Resolution Queue — your primary workspace\nFinancial > Candidates > Candidates — browse all candidates and their processing status\nFinancial > Transactions — confirm resolved trades appear as fact records\nFinancial > Products > Classes — check the product master when resolving PRODUCT_NOT_FOUND\nClients menu — look up firms, offices, and contacts when resolving client errors"
+            }
+          ],
+          "quiz": [
+            {
+              "q": "A trade enters Synfinii. What is the first thing the system tries to do?",
+              "opts": [
+                "Immediately promote it to the master reporting tables",
+                "Validate it against known source codes, product identifiers, and transaction types before processing",
+                "Send it to a Data Steward for manual review",
+                "Export it to SalesPage"
+              ],
+              "a": 1,
+              "exp": "Every incoming record passes through a 10-stage validation pipeline first."
+            },
+            {
+              "q": "What does CLIENT_NOT_FOUND mean as an error code?",
+              "opts": [
+                "The advisor's account has been deactivated",
+                "The trade's rep identifier couldn't be matched to any client profile in the master data",
+                "The rep submitted the trade incorrectly",
+                "The rep's name is spelled differently in two systems"
+              ],
+              "a": 1,
+              "exp": "CLIENT_NOT_FOUND means the trade came in with a rep/contact code that doesn't correspond to any known advisor alias."
+            },
+            {
+              "q": "Why does Synfinii archive every trade in its raw form before processing?",
+              "opts": [
+                "To slow processing for quality control",
+                "To create an immutable record of what was received — the audit safety net for regulatory reviews",
+                "Because processed versions take too much storage",
+                "It only archives trades that fail validation"
+              ],
+              "a": 1,
+              "exp": "Raw archiving is a deliberate SOX control. The raw archive shows exactly what the source sent and never changes."
+            }
+          ],
+          "activities": [
+            {
+              "type": "scenario",
+              "title": "Resolution queue triage",
+              "intro": "You've just opened the Resolution Queue and see the following situations. For each one, decide on the correct course of action.",
+              "steps": [
+                {
+                  "situation": "You see 47 trades from Broadridge all showing CLIENT_NOT_FOUND for Rep Code 'BRD-9921'. This Rep Code has no alias in the system.",
+                  "opts": [
+                    "Manually link each of the 47 trades one by one to the closest matching advisor",
+                    "Escalate to the Data Steward to create the missing entity record and alias, then allow trades to reprocess automatically",
+                    "Delete all 47 trades and ask Broadridge to resubmit",
+                    "Mark all 47 as exceptions and move on"
+                  ],
+                  "a": 1,
+                  "exp": "Batch errors with the same root cause need fixing at the source. The missing alias is a Data Steward task — once created, all 47 trades reprocess automatically."
+                },
+                {
+                  "situation": "A single high-value trade ($4.2M) has been in the queue for 3 days showing PRODUCT_NOT_FOUND for CUSIP 45678XYZ.",
+                  "opts": [
+                    "Wait — it will resolve itself overnight",
+                    "Escalate to your manager immediately and investigate the CUSIP — a trade this size should not sit unresolved for 3 days",
+                    "Delete the trade and ask the source to resubmit",
+                    "Link it to any product with a similar name"
+                  ],
+                  "a": 1,
+                  "exp": "High-value trades ($1M+) unresolved for more than 24 hours require immediate manager escalation. The CUSIP needs to be investigated and mapped to the correct product."
+                },
+                {
+                  "situation": "A trade arrives from source code 'LPL_NEW_FEED' that Synfinii doesn't recognise, generating SOURCE_CODE_NOT_FOUND. There are 200 trades with the same error.",
+                  "opts": [
+                    "Try to manually configure the source yourself",
+                    "Escalate to the IT Administrator — an unconfigured source feed needs to be set up before these trades can process",
+                    "Delete all 200 trades",
+                    "Link each trade manually to an existing source"
+                  ],
+                  "a": 1,
+                  "exp": "SOURCE_CODE_NOT_FOUND indicates an unconfigured feed — this is an IT Administrator task and cannot be resolved from the cockpit. Manual resolution of 200 trades would be inefficient and doesn't fix the root cause."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "RS 102",
+          "title": "The Resolution Queue Interface",
+          "duration": "1.5h",
+          "videoUrl": null,
+          "desc": "Navigate the Resolution Cockpit, prioritize your workload, and complete the full resolution cycle.",
+          "lessons": [
+            {
+              "title": "The Resolution Cockpit interface",
+              "content": "The Resolution Cockpit (Operations > Resolution) is where operations teams clear financial processing errors. It has two levels:\n\nResolution Queue — lists all active error groups. Each group represents candidates sharing the same error type and the same identifying values (the grouping key). Each row shows the error code, grouping key, record count, source code, and impact metrics (AUM, sales, redemptions affected). Use the impact metrics to prioritize — resolve high-AUM errors first. The default sort order prioritizes by total sales impact, then AUM, then record count.\n\nThe queue also has a 'Resolved Today' tab showing groups resolved in the current session, with a link to the underlying candidate detail for quick verification.\n\nThreshold filtering: when AUM and/or sales thresholds are configured for a source code, low-value client error groups are automatically hidden from the queue. A group is hidden only if it falls below both thresholds. Non-client errors (product, transaction code, currency, etc.) are never filtered.\n\nResolution Cockpit (per error group) — a split-panel view opened by clicking any queue row:\n\nLeft panel — shows the Error Context Card with the specific values that caused the error (highlighted in yellow), a sample record organized by sections (Product, Transaction, Account, Dates, Source), and an error description with context-specific guidance. When partial resolution occurred, the left panel also shows 'Original Codes' (raw codes before any transformation) and 'Resolved Client' (hierarchy levels successfully resolved before the error).\n\nRight panel — contains Smart Suggestions (automated match candidates ranked by confidence score), resolution action forms, a Workflow Toggle for switching between Firm/Rep/Account workflows, and an 'Apply to all records' checkbox (checked by default — always leave this checked to resolve the entire error group at once).\n\nSmart Suggestions use multiple matching strategies: fuzzy text matching, exact alias matching, pattern matching (e.g. Firm/*/Rep wildcards), and Common Client (CCOP) database lookups. High-confidence suggestions are highlighted green. Click 'Best Match' to auto-populate the resolution form.\n\nResolution audit: when an Audit Configuration is enabled, submitting a resolution displays a dialog prompting for a Reason and free-text Notes. Both are stored on each repaired process record and appear in the Candidate Detail panel — providing a searchable audit trail of every resolution decision."
+            },
+            {
+              "title": "Filtering and triaging your queue",
+              "content": "The Resolution Queue groups errors by type and identifying values. Use the impact metrics columns to prioritize work:\n\nPriority 1 — PRODUCT_NOT_FOUND and TRANSACTION_CODE_NOT_FOUND. These are fatal errors affecting the most records. Fix reference data first.\n\nPriority 2 — PRODUCT_PRICE_NOT_FOUND and FX_RATE_NOT_FOUND. Date-specific errors — batch by date range for efficient resolution.\n\nPriority 3 — CURRENCY_CODE_NOT_FOUND. Usually few records; quick to fix.\n\nPriority 4 — FIRM_NOT_FOUND. Client hierarchy errors; may partially self-resolve if the CCOP database is configured.\n\nPriority 5 — CLIENT_NOT_FOUND. Large volume in initial runs; complex workflow with three resolution modes (Create Alias, Reassign Codes, Default to House).\n\nPriority 6 — ACCOUNTCLIENT_NOT_FOUND. Requires knowledge of account-client relationships.\n\nPriority 7 — SOURCE_CODE_NOT_FOUND. Administrative error; escalate immediately to IT — no resolution available from the cockpit.\n\nWithin each error type, sort by Impact AUM descending to address the highest-value unresolved records first."
+            },
+            {
+              "title": "Batch errors vs. individual exceptions",
+              "content": "Batch errors look like 50 records from Broadridge all showing PRODUCT_NOT_FOUND for the same CUSIP, or 30 records from LPL all showing CLIENT_NOT_FOUND for the same Rep Code.\n\nFor batch errors, the right action is NOT to resolve each record individually. Identify the root cause and fix it once. The records then reprocess automatically.\n\nThe 'Apply to all records' checkbox in the Resolution Cockpit is checked by default — this ensures your resolution action applies to the entire error group simultaneously, not just the single sample record shown."
+            },
+            {
+              "title": "Escalation paths from the queue",
+              "content": "Escalate to Data Steward when: the trade's identifier matches an entity that doesn't exist yet, or the matching entity has data quality issues causing the failure.\n\nEscalate to IT Administrator when: a new source feed is generating SOURCE_CODE_NOT_FOUND errors because it hasn't been configured, or a recurring batch error suggests a rule or mapping needs updating.\n\nEscalate to your manager when: a trade has been in the queue for more than 5 business days, or a high-value trade ($1M+) has been unresolved for more than 24 hours."
+            },
+            {
+              "title": "Navigation and where things live",
+              "content": "Knowing where to find things in the application saves time. Here are the key pages for Resolution Services work:\n\nFinancial menu → Candidates → Resolution Queue — your primary workspace. This is where you start every session. Error groups are listed here sorted by financial impact.\n\nFinancial menu → Candidates → Candidates — the raw candidate browser. You can search and filter all financial candidates, see their current status (pending, success, failed, excluded), and inspect individual process records.\n\nFinancial menu → Transactions — fact records created from successfully processed candidates. After you resolve an error group and it reprocesses, navigate here to confirm the records appear with correct attribution.\n\nFinancial menu → Products → Classes — the product master. When resolving PRODUCT_NOT_FOUND errors, you can open this in a second tab to check whether the product exists before creating a new one.\n\nClients menu — the entity master for firms, offices, and contacts. Useful when resolving CLIENT_NOT_FOUND and FIRM_NOT_FOUND errors to look up the correct profile before creating an alias.\n\nProcess records: each candidate has a process record that tracks its journey through the pipeline. The process record shows the candidate's current status, any error code, the grouping key, and all resolved values (product_class_id, trade_class, resolved_profile_id, etc.). You can access process records directly from a candidate's detail page."
+            },
+            {
+              "title": "The complete resolution cycle",
+              "content": "Understanding the full cycle — from error to verified fact record — gives you a mental model for your daily work. Here is the complete flow:\n\n1. Processing runs — the pipeline processes candidates. Failed candidates get an error_code and grouping_key assigned. They appear in the Resolution Queue grouped by error type and identifying value.\n\n2. You open the queue — sorted by financial impact. The top row tells you the highest-dollar group to address first. A group showing $12.5M sales impact means $12.5M will not appear in any report until resolved.\n\n3. You open the cockpit — click the row. Left panel shows you what failed and why. Right panel gives you Smart Suggestions and the resolution form.\n\n4. You resolve — create an alias, map a transaction code, enter a price, etc. The 'Apply to all records' checkbox (checked by default) applies your fix to every record in the group simultaneously.\n\n5. Records are marked 'repaired' — the pipeline automatically picks up repaired records in the next processing run, or you can trigger reprocessing immediately.\n\n6. Reprocessing runs — the repaired records go through the pipeline again with the new reference data in place.\n\n7. You verify — the error group disappears from the queue. Navigate to Financial > Transactions to confirm the records appear as fact records with correct product identification, trade classification, and client attribution.\n\nThe cycle repeats for each error group. As you work through PRODUCT_NOT_FOUND first, then TRANSACTION_CODE_NOT_FOUND, then client errors, the queue shrinks and the fact tables fill with accurate data."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "You open the Resolution Queue and see errors of multiple types. Which do you tackle first?",
+              "opts": [
+                "Sort alphabetically A to Z",
+                "PRODUCT_NOT_FOUND and TRANSACTION_CODE_NOT_FOUND — these are fatal reference data errors affecting the most records",
+                "Filter to records older than 90 days",
+                "Show only SOURCE_CODE_NOT_FOUND"
+              ],
+              "a": 1,
+              "exp": "PRODUCT_NOT_FOUND and TRANSACTION_CODE_NOT_FOUND are the highest priority — they are fatal errors affecting the most records. Fix reference data first."
+            },
+            {
+              "q": "The queue shows PRODUCT_NOT_FOUND on 15 trades. What does this tell you?",
+              "opts": [
+                "The trades are from an unauthorized source",
+                "The product identifier (CUSIP, ticker, or fund code) doesn't match any product in Synfinii's product master",
+                "The product has been discontinued",
+                "The trades are duplicates"
+              ],
+              "a": 1,
+              "exp": "PRODUCT_NOT_FOUND means none of the product lookup strategies (CUSIP, ticker, fund code alias, fund name alias) found a match."
+            },
+            {
+              "q": "50 trades from the same source have the same error. What is the most efficient approach?",
+              "opts": [
+                "Resolve each of the 50 individually",
+                "Identify the root cause, fix it once, and allow the records to reprocess automatically",
+                "Escalate all 50 to management",
+                "Mark all 50 as exceptions and move on"
+              ],
+              "a": 1,
+              "exp": "Batch errors with the same root cause should be fixed at the source. The 'Apply to all records' checkbox ensures your fix resolves the entire group."
+            },
+            {
+              "q": "You've just resolved a PRODUCT_NOT_FOUND error group and reprocessing has run. How do you confirm it worked?",
+              "opts": [
+                "Trust that it worked — the system is automatic",
+                "Check that the error group is gone from the queue, then navigate to Financial > Transactions to confirm the records appear as fact records with correct attribution",
+                "Email the Data Steward to verify",
+                "Wait until the next morning's report"
+              ],
+              "a": 1,
+              "exp": "Always verify: first confirm the error group is gone from the queue, then check Financial > Transactions to see the records appear as completed fact records with product, classification, and client attribution all populated."
+            }
+          ]
+        },
+        {
+          "code": "RS 201",
+          "title": "Trade/Asset-to-Entity Matching",
+          "duration": "1.5h",
+          "videoUrl": null,
+          "desc": "Manually link unassigned trades to the correct Rep Master Record.",
+          "lessons": [
+            {
+              "title": "The matching hierarchy",
+              "content": "Synfinii uses a waterfall of match keys:\n\n1. Tax ID — strongest identifier. High-confidence match.\n2. CRD number — FINRA's unique identifier. Also high-confidence.\n3. Rep Code — medium confidence (same code may appear in multiple systems).\n4. Account number — high confidence when clean.\n5. Fuzzy matching — name + firm + geography. Low confidence. Always requires human review."
+            },
+            {
+              "title": "Using Synfinii's lookup tools",
+              "content": "Master record search — search by name, identifier, or firm.\n\nIdentifier cross-reference — enter an identifier from the trade and see what entity it maps to across all sources.\n\nHierarchy view — check that the firm on the trade matches the entity's current firm and that the entity is active.\n\nExternal references — FINRA BrokerCheck, your internal CRM. Document your research path."
+            },
+            {
+              "title": "Validating the match before linking",
+              "content": "Before linking a trade:\n✓ Identifier confirmation — does the identifier match the entity with at least one corroborating data point?\n✓ Activity check — is the entity active on the trade date?\n✓ Firm check — does the trade's source firm match the entity's firm on the trade date?\n✓ Hierarchy check — is the entity correctly linked to a parent office and national account?"
+            },
+            {
+              "title": "Creating permanent aliases",
+              "content": "When you resolve a CLIENT_NOT_FOUND or FIRM_NOT_FOUND error in the Resolution Cockpit, you are creating a permanent alias — a record in the alias table that links the incoming trade codes (firm, office, rep, qualifier) to an entity profile.\n\nCreate Alias — the standard resolution mode. Links the incoming trade codes to an existing contact or firm profile permanently. All future records with the same code combination will resolve to the same entity automatically without human intervention.\n\nReassign Alias — a one-time override. Overwrites the trade codes in the current batch of staging records with different codes that already have a valid alias. No permanent alias is created. Future records with the original codes will still error. Use this only when the source system sent incorrect codes this time.\n\nChoosing correctly matters: an incorrectly created permanent alias will auto-misattribute every future trade with those codes. If you are not confident the codes are stable and correct, use Reassign for the current batch and investigate before creating the permanent alias."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "A trade with Rep Code '7842' has no match. Your lookup returns two similar advisors. How do you confirm which is correct?",
+              "opts": [
+                "Choose the one with the most recent activity",
+                "Cross-reference additional identifiers (Tax ID, CRD, firm name) and verify the hierarchy matches",
+                "Choose randomly",
+                "Reject the trade and ask the source to resubmit"
+              ],
+              "a": 1,
+              "exp": "Always verify using multiple identifiers."
+            },
+            {
+              "q": "Before promoting a linked trade, what final check should you perform?",
+              "opts": [
+                "Confirm the advisor's birthday is on file",
+                "Verify the advisor is active, their firm matches the trade's source, and the hierarchy is valid at the trade date",
+                "Check the trade value is above the minimum threshold",
+                "Confirm the trade was submitted on a business day"
+              ],
+              "a": 1,
+              "exp": "Hierarchy validity at the time of the trade is critical."
+            },
+            {
+              "q": "Synfinii offers to save an alias permanently for future transactions. Should you always accept?",
+              "opts": [
+                "Yes — always accept to reduce workload",
+                "Only accept if you're confident these trade codes are stable and correct — an incorrect alias will misattribute every future trade with those codes",
+                "Never accept — every trade should be reviewed manually",
+                "Only accept for trades over $1 million"
+              ],
+              "a": 1,
+              "exp": "Permanent aliases are the standard resolution path — but they must be correct. An alias links specific trade codes to a specific entity permanently. If the codes are wrong or unstable, use Reassign Alias for the current batch and investigate before committing to a permanent alias."
+            }
+          ]
+        },
+        {
+          "code": "RS 202",
+          "title": "Firm/Office Hierarchy Resolution",
+          "duration": "1h",
+          "videoUrl": null,
+          "desc": "Assign trades to the correct Firm/Office Hierarchy when data is missing or ambiguous.",
+          "lessons": [
+            {
+              "title": "Why hierarchy matters for attribution",
+              "content": "Every trade needs two things: a match to an entity AND a valid hierarchy link (entity → office → national account). Without the hierarchy link, the trade is attributed to the advisor but doesn't roll up correctly. This silently corrupts roll-up reporting — national account managers see understated AUM."
+            },
+            {
+              "title": "Handling office-level ambiguity",
+              "content": "When a trade arrives attributed to 'Merrill Lynch' but without an office identifier:\n\n1. Assign it to the Merrill Lynch national account as a placeholder\n2. Document this as pending in your resolution notes\n3. Monitor for the direct Merrill feed that will provide granular detail\n4. When the direct feed arrives, the parent-child account structure handles reconciliation automatically."
+            },
+            {
+              "title": "Historical attribution and advisor moves",
+              "content": "The rule is simple: attribution reflects where the advisor WAS at the time of the trade, not where they ARE now.\n\nSynfinii tracks advisor moves using effective dating — every hierarchy relationship has a start and end date. A February trade for an advisor who moved in March should be attributed to their February firm."
+            },
+            {
+              "title": "Repairing broken hierarchy links",
+              "content": "To repair a broken link:\n1. Identify the correct parent entity using master record search\n2. Verify the parent is active and correctly configured\n3. Use the hierarchy management tool to re-establish the parent-child link\n4. Set the effective date correctly\n5. Check whether any previously attributed trades need to be re-evaluated\n6. Document the repair with the reason for the break"
+            }
+          ],
+          "quiz": [
+            {
+              "q": "A trade came in attributed to 'Merrill Lynch' without an office identifier. What is the correct approach?",
+              "opts": [
+                "Assign to the Merrill Lynch national account as a placeholder until more granular data arrives",
+                "Reject the trade — it cannot be processed without an office ID",
+                "Assign to a random Merrill Lynch office",
+                "Leave it in the queue indefinitely"
+              ],
+              "a": 0,
+              "exp": "Assigning to the national account as a placeholder is correct. When direct feed data arrives, the parent-child relationship handles automatic reconciliation."
+            },
+            {
+              "q": "An advisor moved from New York to Florida last month. A trade dated before the move is in the queue. Which office receives attribution?",
+              "opts": [
+                "Florida — that's where the advisor is now",
+                "New York — attribution reflects where the advisor was at the time of the trade",
+                "Both offices share 50% attribution",
+                "The trade should be voided"
+              ],
+              "a": 1,
+              "exp": "Attribution is always historical."
+            },
+            {
+              "q": "A parent-child hierarchy link is broken. What is the impact if you don't fix it?",
+              "opts": [
+                "No impact — trades still process correctly",
+                "Roll-up reporting breaks — trades at the office won't aggregate to the national account",
+                "The trades will be automatically rejected",
+                "Only new trades are affected"
+              ],
+              "a": 1,
+              "exp": "Broken hierarchy links silently corrupt roll-up reporting."
+            }
+          ]
+        },
+        {
+          "code": "RS 301",
+          "title": "Finalizing & Promoting Resolved Data",
+          "duration": "0.5h",
+          "videoUrl": null,
+          "desc": "Promote resolved transactions to the master record and understand downstream impact.",
+          "lessons": [
+            {
+              "title": "What promotion means",
+              "content": "Promotion moves a resolved trade from the exception queue into Synfinii's master reporting tables — the same tables that feed AUM dashboards, sales performance reports, and SalesPage compensation calculations.\n\nPromotion is not reversible in the normal workflow. Once a trade is in the master tables, correcting it requires a Data Steward to update the entity record and potentially a reprocessing of downstream reports."
+            },
+            {
+              "title": "The downstream impact of your decisions",
+              "content": "SalesPage — receives promoted trades and uses them to calculate advisor and firm-level AUM, which drives sales compensation.\n\nSales reporting dashboards — pull from the master tables you're promoting into.\n\nAUM reporting — figures used in investor communications and regulatory filings.\n\nCompliance reports — audit evidence packages include data from the master tables.\n\nEvery trade you promote matters."
+            },
+            {
+              "title": "Escalation after promotion: when things go wrong",
+              "content": "1. Do not try to fix it yourself in the master table.\n2. Document the issue immediately.\n3. Contact the Data Steward to correct the master entity record.\n4. Identify which downstream reports were affected.\n5. Escalate to your manager — post-promotion corrections often require coordination and compliance documentation."
+            },
+            {
+              "title": "Documentation best practices",
+              "content": "A complete resolution note includes:\n— What the trade was (source, date, value, error type)\n— What you researched (which identifiers, what external sources)\n— What you found (the entity matched and why you're confident)\n— What action you took\n— Any caveats (e.g. 'best available match based on Rep Code — no CRD available to confirm')\n\nUndocumented resolutions are the most common audit finding in Resolution Services workflows."
+            },
+            {
+              "title": "Verifying your work after reprocessing",
+              "content": "After resolving an error group and triggering reprocessing, always verify the outcome. Don't assume it worked.\n\nStep 1: Check the Resolution Queue — the error group should have disappeared, or the record count should have dropped. If the same group is still there with the same count, reprocessing may not have run yet, or the resolution didn't take effect correctly.\n\nStep 2: Navigate to Financial > Transactions — find the records that were in the error group. They should now appear as transaction fact records with all fields populated: correct product class, trade type and class, gross amount, and client attribution (firm, office, contact).\n\nStep 3: Check the attribution — does the firm and contact shown on the fact record match what you expected when you created the alias? If not, the alias may have been created with incorrect codes.\n\nStep 4: Spot-check the financial values — does the gross amount look reasonable for this type of transaction? An order of magnitude error in amounts sometimes indicates a negation flag was set incorrectly when mapping a transaction code.\n\nIf anything looks wrong at steps 2–4, do not try to fix it directly in the fact tables. Document the discrepancy and contact the Data Steward to correct the master record, which will trigger reprocessing of the affected records."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "Before promoting a resolved trade, what is the most important final check?",
+              "opts": [
+                "That the trade has a comment attached",
+                "That the entity link, product mapping, and transaction type are all confirmed correct",
+                "That manager approval has been obtained for every trade",
+                "That the trade was resolved within 24 hours"
+              ],
+              "a": 1,
+              "exp": "Promotion pushes data into master tables that feed SalesPage, compensation, and sales reports."
+            },
+            {
+              "q": "You promoted a trade but realize it was linked to the wrong advisor. What is the correct next step?",
+              "opts": [
+                "Edit the trade directly in the master table",
+                "Contact the Data Steward to correct the master record and coordinate re-evaluation of affected downstream reports",
+                "Delete the trade and resubmit from scratch",
+                "No action needed — minor errors self-correct"
+              ],
+              "a": 1,
+              "exp": "Post-promotion corrections require coordination."
+            },
+            {
+              "q": "How does your resolution work affect sales compensation for advisors?",
+              "opts": [
+                "It has no effect — compensation is calculated separately",
+                "Directly — trades attributed correctly contribute to advisor AUM and flow totals, which drive commission calculations in SalesPage",
+                "It only affects dashboards, not compensation",
+                "Compensation is calculated manually and doesn't use Synfinii data"
+              ],
+              "a": 1,
+              "exp": "Every trade you resolve correctly contributes to an advisor's attributed AUM and flows."
+            }
+          ]
+        }
+      ]
+    },
+    "sr": {
+      "label": "Sales Reporting",
+      "icon": "SR",
+      "color": "#854F0B",
+      "bg": "#FAEEDA",
+      "border": "#FAC775",
+      "desc": "Transform mastered data into actionable insights: AUM, flows, territory performance.",
+      "modules": [
+        {
+          "code": "SR 101",
+          "title": "Dashboard Navigation & Interpretation",
+          "duration": "1h",
+          "videoUrl": "https://salespagehq-my.sharepoint.com/personal/rkelly_synfinii_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Frkelly_synfinii_com%2FDocuments%2FRecordings%2FUnlock%20the%20Power%20of%20Data%20ThoughtSpot%20Training%20for%20Synfinii-20260320_110124-Meeting%20Recording%2Emp4",
+          "desc": "Navigate and interpret AUM, flows, and compensation dashboards.",
+          "lessons": [
+            {
+              "title": "Understanding Synfinii's reporting layer",
+              "content": "All the data that Synfinii's Data Stewards curate and Resolution Services specialists attribute ends up in a reporting layer powered by ThoughtSpot — an AI-driven analytics platform embedded directly in Synfinii.\n\nPre-built dashboards — curated views for standard questions: total AUM by territory, net flows this quarter, top producers.\n\nSelf-service search — a natural language search bar where you type questions like 'Top 10 advisors by AUM in the Midwest last quarter' and ThoughtSpot generates instant visualizations."
+            },
+            {
+              "title": "Key metrics: AUM and flows",
+              "content": "AUM (Assets Under Management) — the total market value of investments managed on behalf of clients. It's the primary KPI because it directly drives management fees, compensation, and business decisions.\n\nFlows — the movement of money in and out of investment products. Net flows = purchases (inflows) minus redemptions (outflows). Positive net flows mean the business is growing.\n\nOther key metrics: new producers, active accounts, and compensation basis."
+            },
+            {
+              "title": "Data freshness and the nightly cycle",
+              "content": "Synfinii's reporting data reflects the previous nightly cycle's promotion — typically current as of end-of-business the previous day.\n\nWhen you present AUM to leadership, state the effective date: 'AUM as of market close yesterday.'\n\nIntraday trades will not appear until the next nightly cycle completes."
+            },
+            {
+              "title": "Navigating dashboards and applying filters",
+              "content": "Date range filter — selects the time period. Verify which date range is active before presenting.\n\nTerritory/Geography filter — scopes to a specific geographic area or sales territory.\n\nProduct type filter — filters by investment vehicle (mutual funds, ETFs, separate accounts).\n\nFilters are additive — each one further narrows the data. If a dashboard seems to show less data than expected, check all active filters."
+            },
+            {
+              "title": "Live Boards vs. traditional dashboards",
+              "content": "ThoughtSpot calls its dashboards 'Live Boards' — and the distinction matters. A traditional dashboard is a static layout of pre-built charts. A Live Board is dynamic: you can interact with it, drill into data, and explore without leaving the screen or building a new report.\n\nKey Live Board capabilities:\n\nMulti-level drill-down — right-click any data point and drill into contributing dimensions.\n\nUnderlying data access — hover over a visualization and pull up the raw records behind it.\n\nMulti-tab organization — a single Live Board can have multiple tabs.\n\nPresent mode — transforms a Live Board into a presentation-ready view.\n\nWatch list — configure a Live Board as a personal control panel."
+            },
+            {
+              "title": "AI Highlights: automated insight surfacing",
+              "content": "ThoughtSpot includes an AI Highlights feature that automatically analyzes KPI visualizations on a Live Board and surfaces key findings — without you having to ask.\n\nAI Highlights activates (the button turns blue) when a KPI-type visualization is present on the Live Board. When triggered, the AI scans the data behind that KPI and identifies what is driving the result — specific dealer names, products, CUSIPs, territories, or time periods.\n\nUse AI Highlights at the start of any analysis session to quickly surface what's worth investigating before you start drilling. Think of it as your automated first-pass analyst."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "What does AUM stand for and why is it the primary KPI on most dashboards?",
+              "opts": [
+                "Annual Utility Metric — measures system uptime",
+                "Assets Under Management — the total value of client investments, which directly drives revenue and compensation",
+                "Automated User Module — a system feature",
+                "Account Update Method — a data refresh process"
+              ],
+              "a": 1,
+              "exp": "AUM drives management fees, compensation, and business decisions."
+            },
+            {
+              "q": "A dashboard shows 'Net Flows: -$50M' for a territory this quarter. What does this indicate?",
+              "opts": [
+                "The data feed is broken",
+                "More money left the territory's investment products (redemptions) than came in (purchases) — a net outflow",
+                "The territory gained $50M in new assets",
+                "The compensation calculation is pending"
+              ],
+              "a": 1,
+              "exp": "Net flows = purchases minus redemptions. A negative number means clients withdrew more than they invested."
+            },
+            {
+              "q": "You need to see AUM data for only the Midwest territory in Q2. Which two filters apply?",
+              "opts": [
+                "Product type + source system",
+                "Territory (Midwest) + date range (Q2)",
+                "Advisor name + fund manager",
+                "Channel type + AUM threshold"
+              ],
+              "a": 1,
+              "exp": "Territory and date range are the two most common filters for geographic and time-based analysis."
+            },
+            {
+              "q": "A colleague says 'the Live Board is just a fancier dashboard.' What key capability proves them wrong?",
+              "opts": [
+                "Live Boards use better color palettes",
+                "Live Boards support unlimited multi-level drill-down, underlying data access, and real-time interaction without building new reports",
+                "Live Boards refresh every 5 minutes automatically",
+                "Live Boards can only be viewed in present mode"
+              ],
+              "a": 1,
+              "exp": "The core differentiator is interactivity: drill-down without limits, access to underlying records, and real-time exploration."
+            },
+            {
+              "q": "AI Highlights identifies 'the West territory is the primary driver of this month's purchase spike.' What should you do next?",
+              "opts": [
+                "Accept the insight and close the Live Board",
+                "Use it as a starting point — drill into the West territory to understand which offices, advisors, or products are responsible",
+                "Disable AI Highlights to avoid bias in your analysis",
+                "Forward the insight directly to leadership without further investigation"
+              ],
+              "a": 1,
+              "exp": "AI Highlights surfaces where to look, not the full story."
+            }
+          ],
+          "activities": [
+            {
+              "type": "fillinblank",
+              "title": "ThoughtSpot concepts — fill in the blank",
+              "intro": "Complete each statement using the correct ThoughtSpot or Synfinii reporting term. Type your answer in the blank — spelling counts, so check your work before submitting.",
+              "blanks": [
+                {
+                  "prompt": "ThoughtSpot's dynamic dashboards are called ___ because you can drill into data, access underlying records, and interact without leaving the screen.",
+                  "accepts": [
+                    "Live Boards",
+                    "Live boards",
+                    "liveboards",
+                    "live boards"
+                  ],
+                  "exp": "Live Boards are ThoughtSpot's interactive dashboards — distinct from traditional static dashboards."
+                },
+                {
+                  "prompt": "Net flows are calculated as purchases minus ___.",
+                  "accepts": [
+                    "redemptions",
+                    "Redemptions"
+                  ],
+                  "exp": "Net flows = purchases (inflows) minus redemptions (outflows). A negative net flow means more money left than came in."
+                },
+                {
+                  "prompt": "ThoughtSpot's AI search interface, which lets you type a business question in plain English and generates analysis automatically, is called ___.",
+                  "accepts": [
+                    "Spotter",
+                    "spotter"
+                  ],
+                  "exp": "Spotter is ThoughtSpot's natural language AI search — type a question and it builds the analysis for you."
+                },
+                {
+                  "prompt": "Synfinii's reporting data updates via a nightly ___, which means AUM figures reflect end-of-previous-day data.",
+                  "accepts": [
+                    "cycle",
+                    "nightly cycle",
+                    "processing cycle"
+                  ],
+                  "exp": "The nightly cycle processes all transactions and updates the master reporting tables."
+                },
+                {
+                  "prompt": "The ThoughtSpot feature that automatically analyses KPI visualizations and surfaces key drivers without you asking is called AI ___.",
+                  "accepts": [
+                    "Highlights",
+                    "highlights"
+                  ],
+                  "exp": "AI Highlights scans the data behind a KPI and tells you what's driving the result — your automated first-pass analyst."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": "SR 102",
+          "title": "Filtering, Grouping & Segmentation",
+          "duration": "1.5h",
+          "videoUrl": null,
+          "desc": "Segment data by product line, distribution channel, and territory.",
+          "lessons": [
+            {
+              "title": "Why segmentation matters",
+              "content": "Raw data tells you what happened. Segmented data tells you where, for whom, and why. AUM by territory shows which regions are growing vs. contracting. AUM by product type shows which products are gaining vs. losing share. AUM by distribution channel shows your strongest growth driver."
+            },
+            {
+              "title": "Grouping and aggregation functions",
+              "content": "GROUP BY — tells the system which dimension to segment by.\n\nAggregation function:\n— SUM: total AUM or flows within each group (most common)\n— COUNT: number of accounts or advisors within each group\n— AVERAGE: mean AUM per advisor\n— MAX/MIN: highest or lowest value\n\nMost sales reporting questions combine both: 'Show me total AUM (SUM) by territory (GROUP BY territory).'"
+            },
+            {
+              "title": "Distribution channel segmentation",
+              "content": "Channels include:\n— Wirehouse: large national broker-dealers (Merrill Lynch, Morgan Stanley, UBS, Wells Fargo)\n— Independent broker-dealer: smaller BD networks (LPL, Raymond James)\n— RIA: fee-based advisory firms\n— Bank channel\n— Institutional\n\nChannel or Firm Type is the standard segmentation field for distribution analysis."
+            },
+            {
+              "title": "Time-series analysis",
+              "content": "Comparing data across time periods lets you:\n— Compare period-over-period: current quarter vs. prior quarter\n— Track trends: monthly AUM for the last 12 months\n— Identify seasonality: do flows spike in Q4?\n— Measure growth rate: year-over-year growth in a specific channel\n\nPresenting a trend is almost always more compelling and informative than a single point-in-time number."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "You want to compare ETF vs. mutual fund performance side by side. Which approach is correct?",
+              "opts": [
+                "Create two separate reports manually",
+                "Apply a GROUP BY product type filter to see aggregated totals for each category in one view",
+                "Export all data to Excel and sort manually",
+                "Run the report twice with different date ranges"
+              ],
+              "a": 1,
+              "exp": "GROUP BY product type aggregates all records within each category."
+            },
+            {
+              "q": "A sales manager asks for AUM broken down by distribution channel. What field do you use?",
+              "opts": [
+                "Rep Code",
+                "Channel or Firm Type — which maps each account to its distribution category",
+                "Product CUSIP",
+                "Trade date"
+              ],
+              "a": 1,
+              "exp": "Channel or Firm Type is the standard segmentation field for distribution analysis."
+            },
+            {
+              "q": "After applying multiple filters, your report shows fewer records than expected. What should you check first?",
+              "opts": [
+                "Assume the data is correct",
+                "Review each active filter — one may be too restrictive or incorrectly set",
+                "Rebuild the report from scratch",
+                "Contact IT to report a bug"
+              ],
+              "a": 1,
+              "exp": "Multiple active filters compound their effects. A filter left active from a previous session is a common culprit."
+            }
+          ]
+        },
+        {
+          "code": "SR 201",
+          "title": "Advanced Report Builder Mastery",
+          "duration": "2h",
+          "videoUrl": null,
+          "desc": "Design, save, and share custom reports using the drag-and-drop Report Builder.",
+          "lessons": [
+            {
+              "title": "The report builder interface",
+              "content": "Key components:\n\nData fields panel — all available fields from the Synfinii data model. Drag fields into your report.\n\nCanvas area — build your report here. Drop fields to add columns, define groupings, and set aggregations.\n\nFilter panel — add filters to scope the data.\n\nVisualization options — toggle between table view, bar chart, line graph, heat map, or pie chart.\n\nCalculated fields — create derived metrics (e.g. 'Net flows = purchases - redemptions')."
+            },
+            {
+              "title": "Building a monthly flow report",
+              "content": "Step 1: Select fields — Territory, Month (from transaction date), Purchases (SUM), Redemptions (SUM).\nStep 2: Add a calculated field — 'Net Flows = Purchases - Redemptions.'\nStep 3: Set grouping — GROUP BY Territory, then by Month.\nStep 4: Apply date filter — last 12 months.\nStep 5: Choose visualization — line chart for trends, table for sharing exact figures.\nStep 6: Validate — cross-check the largest territory's total against a known figure.\nStep 7: Save with a descriptive name and schedule for distribution."
+            },
+            {
+              "title": "Report performance optimization",
+              "content": "Always apply a date range filter — querying 5 years of history when you need 1 quarter dramatically increases load time.\n\nFilter before grouping — narrow the dataset first, then apply groupings and aggregations.\n\nAvoid unnecessary columns — every additional field adds to query complexity.\n\nTest with a small date range first — validate the logic is correct before committing to a longer runtime."
+            },
+            {
+              "title": "Sharing, permissions, and scheduling",
+              "content": "View-only link — recipients can see data but cannot modify the report definition.\n\nEdit access — recipients can modify the report. Use only for trusted colleagues co-developing the report.\n\nScheduled distribution — automated email delivery at a set frequency. Recipients receive a snapshot without needing a Synfinii login.\n\nBefore sharing any report containing compensation data, confirm the recipient has appropriate authorization."
+            },
+            {
+              "title": "ThoughtSpot Spotter: AI-powered natural language search",
+              "content": "ThoughtSpot's AI search interface is called Spotter. Rather than dragging and dropping fields, you type a business question in plain English and Spotter builds the analysis for you.\n\nExample question: 'Exclusively in the RIA channel, what are the top 10 redeeming offices I should focus on for retention efforts?'\n\nSpotter identifies the correct fields automatically, suggests a visualization, generates written insights, and lets you edit the result immediately.\n\nColumn sets — define custom groupings. For example, create a new territory by selecting specific states and label it 'N Territory Expansion 1.'"
+            },
+            {
+              "title": "Formulas, parameters, and query sets in ThoughtSpot",
+              "content": "1. Formulas — create calculated metrics within an answer. ThoughtSpot supports complex logical formulas similar to Excel.\n\n2. Parameters — user-defined inputs that can modify formula behavior.\n\n3. Column sets — define custom groupings of existing dimension values.\n\n4. Query sets — pre-defined filters or conditions that can be reused across analyses.\n\nImportant scope rule: Formulas and column sets you create in a Spotter answer are scoped to that answer only. To reuse them, clone the answer or ask an Administrator to add the formula to the shared data model."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "You're building a monthly AUM report by territory. Which aggregation applies to the AUM field?",
+              "opts": [
+                "COUNT — to count accounts",
+                "SUM — to total all AUM within each territory group",
+                "AVERAGE — to find mean AUM per advisor",
+                "MIN — to find the smallest account"
+              ],
+              "a": 1,
+              "exp": "SUM aggregates total AUM within each territory group."
+            },
+            {
+              "q": "Your report takes 3 minutes to load. What is the most likely cause and solution?",
+              "opts": [
+                "The report is too accurate and needs simplification",
+                "The report is querying too much historical data without filters — apply a date range to limit the dataset",
+                "The server is broken — contact IT",
+                "Reports always take this long"
+              ],
+              "a": 1,
+              "exp": "Large, unfiltered datasets cause slow reports. Applying a date range dramatically reduces the data volume."
+            },
+            {
+              "q": "A colleague needs your custom report every Monday. What is the correct way to share it?",
+              "opts": [
+                "Email them a PDF each Monday manually",
+                "Use the scheduling feature to auto-distribute at 7am every Monday with view-only access",
+                "Share your login credentials",
+                "Print and leave on their desk"
+              ],
+              "a": 1,
+              "exp": "Scheduled distribution automates delivery with defined access levels."
+            },
+            {
+              "q": "When should you use Spotter's natural language search instead of the Report Builder?",
+              "opts": [
+                "Always — natural language is faster for everything",
+                "For exploratory analysis where you're not sure exactly what you're looking for yet",
+                "Only when the Report Builder is unavailable",
+                "Spotter is only for administrators"
+              ],
+              "a": 1,
+              "exp": "Spotter excels at exploratory analysis. The Report Builder is better for structured, repeatable reports."
+            },
+            {
+              "q": "You create a formula in a Spotter answer. A colleague wants to use it in their own answer. What is the correct approach?",
+              "opts": [
+                "The formula is automatically available to everyone",
+                "Clone your answer and share it, or ask an Administrator to add it to the shared data model",
+                "Re-type the formula in each new answer manually",
+                "Export the formula as a CSV and import it elsewhere"
+              ],
+              "a": 1,
+              "exp": "Formulas created in a Spotter answer are scoped to that answer. Cloning shares them; adding to the data model makes them globally available."
+            }
+          ]
+        },
+        {
+          "code": "SR 202",
+          "title": "Data Comprehension & Validation",
+          "duration": "1h",
+          "videoUrl": null,
+          "desc": "Validate report accuracy and understand data lineage.",
+          "lessons": [
+            {
+              "title": "Why validation is your responsibility",
+              "content": "You are the last checkpoint before data reaches stakeholders. A report presented to leadership with incorrect AUM figures can lead to wrong business decisions, compensation disputes, and regulatory issues. Validation isn't optional box-checking — it's the professional standard."
+            },
+            {
+              "title": "Cross-referencing and spot-checking",
+              "content": "Spot-check against known values — if a major advisor had ~$500M last quarter and this quarter shows $50M, investigate before distributing.\n\nPeriod-over-period comparison — changes of more than 10-15% in a single quarter need a documented explanation.\n\nSum-of-parts check — the sum of all territories should equal the total AUM figure.\n\nLine-item drill-down — for key figures, drill into underlying records to confirm the data is correct."
+            },
+            {
+              "title": "Understanding data lineage for validation",
+              "content": "When a number looks wrong, data lineage helps you trace it to the source. Click on an aggregate figure to drill into underlying records. From there, see which source system the data came from, when it was promoted, and whether any records have unresolved exceptions in the Resolution Queue."
+            },
+            {
+              "title": "Communicating data quality issues to stakeholders",
+              "content": "Best practice: present the report with a clear caveat. 'AUM figures as of [date] — note that approximately $30M in ETF trades are currently pending resolution and are not yet reflected. Updated figures will be available by [date].'\n\nWhat not to do: present the report without disclosing the known gap. Data quality transparency builds trust over time."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "Your Q3 AUM report shows $500M for a territory but the manager says it should be $550M. What is your investigation process?",
+              "opts": [
+                "Accept the manager's number and adjust the report",
+                "Drill into underlying transactions and check the Resolution Queue for unresolved trades affecting the total",
+                "Tell the manager the system is always correct",
+                "Delete the report and start over"
+              ],
+              "a": 1,
+              "exp": "The $50M gap is likely explained by trades still in the Resolution Queue or a hierarchy break."
+            },
+            {
+              "q": "What is 'data freshness' and why does it matter when presenting to leadership?",
+              "opts": [
+                "Whether the report design looks modern",
+                "How recently the underlying data was updated — leaders need to know if they're looking at yesterday's data or last week's",
+                "The number of decimal places displayed",
+                "Whether the report has been approved by compliance"
+              ],
+              "a": 1,
+              "exp": "Synfinii updates via nightly cycle — AUM reflects end-of-previous-day data."
+            },
+            {
+              "q": "Leadership asks 'Where does this AUM number come from?' How do you answer?",
+              "opts": [
+                "The number is calculated by IT and its source is unknown",
+                "Use the data lineage view to trace the figure back through the attribution pipeline to its original source feeds",
+                "Refer them to the original data provider",
+                "The number is proprietary and cannot be traced"
+              ],
+              "a": 1,
+              "exp": "Data lineage provides a traceable path from any reported number back through the processing pipeline."
+            }
+          ]
+        },
+        {
+          "code": "SR 301",
+          "title": "Report Scheduling & Distribution",
+          "duration": "0.5h",
+          "videoUrl": null,
+          "desc": "Automate report delivery and manage access permissions.",
+          "lessons": [
+            {
+              "title": "Designing a distribution schedule",
+              "content": "Questions to answer before scheduling:\n— What is the right frequency? Daily, weekly, monthly, quarterly?\n— When should it deliver? First thing Monday morning or the day after period close?\n— What format? PDF for static snapshots or live links for recipients who need to drill in?\n— What scope? Territory-scoped reports require separate scheduled instances per recipient."
+            },
+            {
+              "title": "ThoughtSpot scheduling and threshold alerts",
+              "content": "Scheduled deliveries: From any Live Board, open the 'More' menu and select 'Create schedule.' You can deliver the full Live Board or select specific visualizations. A single Live Board can have multiple schedules delivering different subsets to different distribution lists on different cadences.\n\nThreshold alerts: Alerts are separate from schedules. An alert fires whenever a condition is met. You set a KPI metric, define a trigger condition, and specify who should be notified.\n\nKey distinction: Schedules = regular cadence delivery. Alerts = event-driven notification when a threshold is crossed."
+            },
+            {
+              "title": "Access control and data governance",
+              "content": "Compensation reports — restrict to the individuals whose compensation is shown, their direct manager, and authorized HR/finance personnel.\n\nTerritory reports — each territory manager should receive only their own territory's data.\n\nBefore setting up a new distribution list, confirm each recipient's authorization level with your manager or data governance team."
+            },
+            {
+              "title": "Monitoring and maintaining scheduled reports",
+              "content": "Common failure modes:\n\nRecipient email changes — when someone changes roles or leaves, their distribution address may become invalid.\n\nReport definition becomes stale — if the underlying data model changes, a report built on the old structure may silently produce incorrect output.\n\nPermission revocation — if a recipient's access is revoked but they're still on a scheduled distribution, they continue receiving data they're no longer authorized to see."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "You need to distribute a compensation report to 5 regional managers, each seeing only their own territory. How do you configure this?",
+              "opts": [
+                "Send one combined report to all 5",
+                "Use territory-scoped views or separate scheduled reports per manager, each filtered to their specific territory",
+                "Give all 5 full access for transparency",
+                "Manually edit the report 5 times before sending"
+              ],
+              "a": 1,
+              "exp": "Territory scoping ensures each recipient sees only relevant data."
+            },
+            {
+              "q": "A scheduled report stops delivering every Monday. What is your first troubleshooting step?",
+              "opts": [
+                "Rebuild the report from scratch",
+                "Check the scheduling configuration — verify recipient addresses, permissions, and whether the underlying query is still valid",
+                "Assume the server is down and wait for IT",
+                "Cancel the schedule and switch to manual delivery"
+              ],
+              "a": 1,
+              "exp": "Most scheduling failures are configuration issues."
+            },
+            {
+              "q": "What is 'least privilege' and how does it apply to report distribution?",
+              "opts": [
+                "Give users the most data possible",
+                "Give users only the data access they need to perform their specific job — nothing more",
+                "Restrict all data access to senior leadership only",
+                "Apply only to financial data"
+              ],
+              "a": 1,
+              "exp": "Least privilege means users get exactly the access their role requires."
+            },
+            {
+              "q": "A head of product wants to be alerted when any fund's AUM drops by more than 10% in a week, but doesn't log into ThoughtSpot regularly. What is the right solution?",
+              "opts": [
+                "Email them the full Live Board every day",
+                "Set a threshold alert on the AUM KPI — it fires only when the condition is met and can be delivered to any email address",
+                "Ask them to log in and check manually",
+                "Create a separate scheduled weekly report for each fund they manage"
+              ],
+              "a": 1,
+              "exp": "Threshold alerts are event-driven and deliver to email addresses — no platform login required."
+            }
+          ]
+        }
+      ]
+    },
+    "ad": {
+      "label": "Administrator",
+      "icon": "AD",
+      "color": "#533AB7",
+      "bg": "#EEEDFE",
+      "border": "#CECBF6",
+      "desc": "Configure, secure, and maintain Synfinii. Own system stability, access control, and compliance.",
+      "modules": [
+        {
+          "code": "AD 101",
+          "title": "Platform Orientation & Architecture",
+          "duration": "1.5h",
+          "videoUrl": null,
+          "desc": "Understand Synfinii's architecture, environments, and your role as a SOX control point.",
+          "lessons": [
+            {
+              "title": "What is Synfinii and why does it matter to an Admin?",
+              "content": "Synfinii is a data management, reporting, and analytics platform for asset managers deployed on Amazon Web Services (AWS). It's a microservice-based system — meaning the platform is made up of multiple independent services (entity management, financial processing, coverage, reporting), each backed by a PostgreSQL database.\n\nFor you as an Administrator, the microservice architecture means failures are isolated — a problem in one service doesn't take down the whole platform — and deployments can be incremental."
+            },
+            {
+              "title": "The three environments",
+              "content": "Development (Dev) — where new features are built and unit-tested. Primarily used by the Synfinii engineering team.\n\nUAT (User Acceptance Testing) — the staging environment. This is where you test ALL configuration changes before they go live.\n\nProduction (Prod) — the live environment. Real client data. Real transactions.\n\nThe mandatory promotion path is Dev → UAT → Production. This is a SOX Change Management control. There are no exceptions."
+            },
+            {
+              "title": "Admin vs. Data Steward: Segregation of Duties",
+              "content": "Data Steward — owns the DATA. Creates records, resolves exceptions, corrects data quality issues.\n\nAdministrator — owns the SYSTEM. Configures the platform, manages who has access, deploys rules, monitors infrastructure.\n\nThis separation is a SOX Segregation of Duties (SoD) requirement. You set up the Data Steward's account and assign their role. You do not then use that role yourself to modify data records."
+            },
+            {
+              "title": "Your role as a SOX control point",
+              "content": "Your three ITGC areas:\n\n1. Change Management — all system changes documented, tested in UAT, and approved before Production deployment.\n\n2. Access Control — users have only the access their role requires. You provision, you review, you revoke.\n\n3. System Availability — the system meets agreed uptime targets. You monitor, respond to incidents, and maintain tested backup and recovery procedures.\n\nEvery action you take in Synfinii is permanently logged. These logs are the primary evidence during SOX audits."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "Synfinii's microservice architecture means what operationally for an Administrator?",
+              "opts": [
+                "All functions are handled by one monolithic application",
+                "Each platform function is an independent service — failures are isolated and updates can be deployed incrementally",
+                "Microservices require more manual configuration",
+                "Administrators cannot access individual services directly"
+              ],
+              "a": 1,
+              "exp": "Microservice architecture means failures are isolated. For Admins, incident response is more targeted and deployments can be incremental."
+            },
+            {
+              "q": "What is the mandatory promotion path for all configuration changes?",
+              "opts": [
+                "Development → Production directly",
+                "Development → UAT → Production",
+                "UAT → Development → Production",
+                "Production → UAT (post-deployment validation)"
+              ],
+              "a": 1,
+              "exp": "Dev → UAT → Production is non-negotiable. Skipping UAT is a SOX Change Management violation."
+            },
+            {
+              "q": "As a Synfinii Administrator, what does being a 'formal SOX control point' mean?",
+              "opts": [
+                "You are required to attend SOX training annually",
+                "Your actions — user provisioning, rule deployments, config changes — are IT General Controls that auditors review as evidence of compliance",
+                "SOX only applies to the finance team",
+                "You are responsible for filing SOX reports with the SEC"
+              ],
+              "a": 1,
+              "exp": "IT General Controls (ITGCs) are a formal SOX component."
+            }
+          ]
+        },
+        {
+          "code": "AD 102",
+          "title": "User Security & Access Control (RBAC)",
+          "duration": "1.5h",
+          "videoUrl": null,
+          "desc": "Provision users, assign roles, configure SSO/MFA, and conduct access reviews.",
+          "lessons": [
+            {
+              "title": "Role-Based Access Control fundamentals",
+              "content": "Synfinii uses RBAC — instead of configuring individual permissions for each person, you assign roles (predefined permission sets).\n\nStandard roles: Data Steward, Resolution Services, Sales Reporting, Administrator.\n\nThe principle of least privilege applies: assign the minimum role necessary. Don't assign Admin rights to someone who only needs to run reports."
+            },
+            {
+              "title": "Provisioning a new user",
+              "content": "1. Receive a formal authorized provisioning request — never provision based on a verbal request from the user themselves.\n2. Create the account with the user's work email.\n3. Assign the appropriate role based on job function, not what they've requested.\n4. Scope the access appropriately.\n5. Document the provisioning action.\n6. Notify the user and their manager."
+            },
+            {
+              "title": "SSO and MFA configuration",
+              "content": "SSO (Single Sign-On) — connects Synfinii to your firm's identity provider (Azure AD or Okta). Users log in with corporate credentials. Deactivating someone in your identity provider automatically revokes their Synfinii access.\n\nMFA (Multi-Factor Authentication) — requires a second factor beyond the password. Required for all Administrator accounts and any role with access to compensation or financial data."
+            },
+            {
+              "title": "Periodic access reviews",
+              "content": "Minimum frequency: quarterly for SOX compliance.\n\nThe review process:\n1. Export the current user list with roles and last login date\n2. Share with each user's manager for sign-off\n3. Document manager confirmations\n4. Revoke access for anyone no longer requiring it\n5. Investigate accounts unused for 90+ days\n6. Retain documentation as audit evidence"
+            }
+          ],
+          "quiz": [
+            {
+              "q": "A new Data Steward joins the team. What is the correct provisioning sequence?",
+              "opts": [
+                "Give them Admin access temporarily",
+                "Receive an authorized request, create the account, assign only the Data Steward role with appropriate scope, document the action",
+                "Let them use a colleague's login",
+                "Give them all available roles immediately"
+              ],
+              "a": 1,
+              "exp": "Least privilege from day one: authorized request first, then create account, assign only the required role."
+            },
+            {
+              "q": "What is the key difference between authentication (SSO/MFA) and authorization (RBAC)?",
+              "opts": [
+                "They are the same thing",
+                "Authentication confirms who you are; authorization controls what you can do once logged in",
+                "RBAC is only for external users; SSO is only for internal users",
+                "Authentication is optional; authorization is mandatory"
+              ],
+              "a": 1,
+              "exp": "SSO/MFA authenticates identity. RBAC authorizes access. Both layers are required."
+            },
+            {
+              "q": "A quarterly access review reveals a user has both Data Steward and Resolution Services roles. Why is this a compliance concern?",
+              "opts": [
+                "It is not a concern — more roles means more productivity",
+                "This violates Segregation of Duties — a user who creates/modifies records shouldn't also resolve financial exceptions for those same records",
+                "It's only a concern if they also have Admin access",
+                "Access reviews are optional"
+              ],
+              "a": 1,
+              "exp": "SoD requires different stages of a financial process to be controlled by different people."
+            }
+          ]
+        },
+        {
+          "code": "AD 201",
+          "title": "Integration Setup & Feed Management",
+          "duration": "2h",
+          "videoUrl": null,
+          "desc": "Configure data feeds, monitor ingestion health, and manage the processing pipeline.",
+          "lessons": [
+            {
+              "title": "The three components of a feed setup",
+              "content": "Provider — defines WHERE the data comes from: FTP site, credentials, file path, file name pattern.\n\nSource — defines HOW to interpret the data: file format, column mapping, which Synfinii schema applies.\n\nJob — defines WHEN to process and WHAT to do: schedule, dependencies, and output routing.\n\nNavigation: Import > Import Settings > Source Codes is where you configure providers. Each source code record holds both the provider connection details and the processing configuration in one place."
+            },
+            {
+              "title": "Configuring a source code — fields in detail",
+              "content": "When creating or editing a source code, the key fields are:\n\nSource Code — the short alphanumeric identifier (e.g. FIDELITY, BROADRIDGE_LQE1). Used on every candidate record for lineage and filtering. Choose something stable — changing it later requires updating all downstream references.\n\nIngestion Protocol — how files are collected:\n— LOCAL: files from a folder path on the server (dev/testing)\n— SFTP: files pulled from a remote SFTP server using credentials\n— S3: files pulled from an AWS S3 bucket\n— NONE: no automated ingestion; files uploaded manually\n\nIngestion Location — the full path or URL where files are found (e.g. /data/feeds/fidelity or s3://bucket/feeds/fidelity).\n\nMatch Pattern — controls which files in the location are picked up. Supports glob patterns (e.g. *.csv matches all CSV files) and regex patterns (e.g. ^transactions_\\d{8}\\.csv$ matches only date-stamped files). Be as specific as possible to avoid picking up partial or temporary files.\n\nArchive Policy — what happens to the source file after successful ingestion:\n— DELETE: source file is removed after ingestion (standard for production)\n— NONE: source file is left in place (useful during testing or when the source system owns the file)\n\nexecuting_at — controls how deep into the client hierarchy Stage 9 resolves (NULL, FIRM, or OFFICE). Set this correctly for each source — a source that only sends firm-level identifiers should use FIRM, otherwise the pipeline generates unnecessary CLIENT_NOT_FOUND errors."
+            },
+            {
+              "title": "Triggering ingestion and reading results",
+              "content": "Once a source code is configured with a protocol other than NONE, a play button appears in the Actions column of the Source Codes table (Import > Import Settings > Source Codes).\n\nTo trigger ingestion manually:\n1. Find the source code row\n2. Click the play button (triangular arrow icon) in the far-right Actions column\n3. The button shows a spinning indicator while the system scans the location\n4. An alert appears at the top of the page when complete — e.g. 'Ingested 3 file(s) from FIDELITY_DEMO'\n\nThe system:\n— Scans the ingestion location for files matching the pattern\n— Copies each matched file into the internal file repository\n— Applies the archive policy to the originals (deletes or leaves them)\n— Creates a file record and ingestion job record for each file\n\nIf the play button is disabled (greyed out), the protocol is set to NONE or not configured. Hover over the button to see the tooltip explaining why.\n\nIn production, ingestion is typically triggered automatically by a pipeline schedule rather than manually."
+            },
+            {
+              "title": "Monitoring ingestion with the Ingestion Jobs page",
+              "content": "After triggering ingestion — manually or via pipeline — navigate to Import > Import Settings > Ingestion Jobs to review what happened.\n\nThe Ingestion Jobs list shows:\n— Source Code Name\n— Status: COMPLETED (green), PROCESSING (yellow), FAILED (red), PARTIAL_SUCCESS (blue)\n— Started At and Finished At timestamps\n— Duration\n— Files count — how many files were acquired\n\nClick any job row to open the detail dialog, which has three sections:\n\nSummary box — job ID, source code, timestamps, duration, files acquired count.\n\nExecution Logs — a terminal-style log of what happened during the job. When something goes wrong, this is your first diagnostic stop. Look for file-specific errors, path resolution failures, or permission issues.\n\nIngested Files table — lists every file acquired in this job with its stored path, file size, and upload timestamp. The stored path follows the pattern: sources/{SOURCE_CODE}/{YEAR}/{MONTH}/{DAY}/{filename}. This structured path enables browsing by source and date, and provides complete traceability — any file can be traced back to its source code and acquisition batch.\n\nVolume-based alerts fire when a feed delivers an unusually low or zero number of records. Configure these on the pipeline to catch silent failures — a source that simply stops sending files will not generate an error on its own."
+            },
+            {
+              "title": "Pre-built source integrations",
+              "content": "Synfinii's library of pre-built source configurations includes: Broadridge, Fidelity BD, InvestNet, Schwab, SalesConnect, Salesforce, LPL, Merrill Lynch, transfer agents and DSAs.\n\nTo activate a pre-built source, configure the Provider and Job, then link them to the existing Source configuration. The data mapping is already done."
+            },
+            {
+              "title": "Event-based processing and job dependencies",
+              "content": "Processing is event-based: files begin processing as soon as they arrive. Job dependencies control orchestration.\n\nA Job configured with dependencies will receive File A — begin staging but not process — then receive File B — now process the complete dataset.\n\nIf only File A arrives and File B doesn't, the job holds File A until either File B arrives or the dependency timeout triggers (typically 24 hours)."
+            },
+            {
+              "title": "ThoughtSpot data workspace and org management",
+              "content": "ThoughtSpot uses a multi-org model. There is a primary org where Administrators build and test data models. Each client has their own individual org — completely isolated.\n\nData workspace workflow:\n1. Set up a connection to the data source\n2. Select which tables are needed\n3. Configure the joins — specify which IDs link each table, the join type, and cardinality\n4. Select and configure columns — rename fields, add descriptions, create calculated columns\n5. Tag tables for organization\n\nOnce built, click 'Search on this model' to validate results."
+            },
+            {
+              "title": "TML: ThoughtSpot Modeling Language",
+              "content": "TML (ThoughtSpot Modeling Language) is the code representation of any ThoughtSpot object.\n\nWhy TML matters:\n1. Cross-org deployment — export a model from the primary org and import it into each client org.\n2. Version control — TML files can be stored in Git for change history and rollback.\n3. Consistency enforcement — all clients receive the same standard model.\n\nPrerequisite: the target org must have the same underlying tables with the same names. Client-created formulas are answer-scoped. Admins can copy the formula logic into the data model via TML to make it globally available."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "A new Broadridge ETF feed needs to be configured. What are the three components you must set up?",
+              "opts": [
+                "Database schema, report template, user permissions",
+                "Provider (FTP location/credentials), Source (how to process the file), and Job (scheduling and dependencies)",
+                "API key, webhook URL, and data model",
+                "Encryption key, storage bucket, and backup schedule"
+              ],
+              "a": 1,
+              "exp": "Provider = where; Source = how to interpret; Job = when and how to process."
+            },
+            {
+              "q": "The nightly cycle failed and three feeds didn't process. What is your first action?",
+              "opts": [
+                "Rerun all feeds immediately",
+                "Check system logs to identify which pipeline step failed and determine root cause before escalating",
+                "Wait until morning to see if it self-corrects",
+                "Delete and re-create all three feed configurations"
+              ],
+              "a": 1,
+              "exp": "Incident response starts with log analysis to understand what failed and why."
+            },
+            {
+              "q": "A source system sends data via email rather than FTP. When is an import template the right approach?",
+              "opts": [
+                "Never — Synfinii only supports FTP",
+                "When the source is non-standard or an infrequent load that doesn't justify building a full automated job",
+                "Always — import templates are preferred",
+                "Only for files under 1MB"
+              ],
+              "a": 1,
+              "exp": "Import templates are the right tool for irregular, manual, or non-standard sources."
+            },
+            {
+              "q": "You configure a source code with Match Pattern '*.csv' but the provider also drops '.csv.tmp' partial files during upload. What should you do?",
+              "opts": [
+                "Accept all files — the pipeline will filter out invalid ones",
+                "Use a more specific regex pattern (e.g. ^[A-Z]+_\\d{8}\\.csv$) to match only complete, correctly named files",
+                "Set Archive Policy to NONE so partial files are not deleted",
+                "Disable the match pattern entirely"
+              ],
+              "a": 1,
+              "exp": "A specific regex pattern prevents partial or temporary files from being picked up mid-upload. Always be as specific as possible with match patterns in production."
+            },
+            {
+              "q": "After triggering ingestion, where do you go to see the execution logs and confirm which files were acquired?",
+              "opts": [
+                "Control Tower dashboard",
+                "Import > Import Settings > Ingestion Jobs — click the job row to open the detail dialog with logs and file list",
+                "Financial > Candidates",
+                "Admin > Audit Log"
+              ],
+              "a": 1,
+              "exp": "The Ingestion Jobs page (Import > Import Settings > Ingestion Jobs) shows every job with status, duration, and file count. The detail dialog shows execution logs and the full list of acquired files with their stored paths."
+            },
+            {
+              "q": "You've built and validated a new data model in the primary ThoughtSpot org. How do you deploy it to a client org?",
+              "opts": [
+                "Rebuild it manually in each client org",
+                "Export the TML from the primary org and import it into the client org — provided the underlying tables and names match",
+                "Send the client a PDF of the model configuration",
+                "It deploys automatically when you save the model"
+              ],
+              "a": 1,
+              "exp": "TML export/import is the deployment mechanism. The target org must have matching table names and structure."
+            },
+            {
+              "q": "A client creates a useful formula in their Spotter answer and wants it available across all their reports. What can you do as an Administrator?",
+              "opts": [
+                "Nothing — client formulas are permanently locked to the answer they were created in",
+                "Copy the formula logic into the client's data model via TML, making it globally available within their org",
+                "Delete their answer and rebuild it with the formula at the model level",
+                "The client must manually re-enter the formula in every answer they create"
+              ],
+              "a": 1,
+              "exp": "Admins have visibility into client-created formulas. Adding the formula to the data model via TML promotes it from answer-scoped to globally available."
+            }
+          ]
+        },
+        {
+          "code": "AD 202",
+          "title": "Business Rules Engine Management",
+          "duration": "1.5h",
+          "videoUrl": null,
+          "desc": "Deploy, monitor, and roll back mastering and matching rules.",
+          "lessons": [
+            {
+              "title": "The 10-stage financial processing pipeline",
+              "content": "Every trade passes through a fixed 10-stage pipeline, plus a pre-processing Stage 0:\n\nStage 0 — Pre-Initialization Rules (PRE_INIT): runs domain rules before any pipeline columns are added. Rules here can set override_exclude_flag=True on a candidate, which causes Stage 1 to mark it with candidate_status='excluded' and error_code='EXCLUDED'. Excluded candidates produce no fact records and no error queue entry — they are silently dropped. Typical uses: filter out IWS channel duplicates from a multi-channel feed, suppress known bad data before it enters the pipeline.\n\nStage 1 — Initialization: prepares the processing batch, adds output columns (error_code, grouping_key, candidate_status, resolved_*).\nStage 2 — Source Code Validation: verifies the source code is configured. Can error: SOURCE_CODE_NOT_FOUND.\nStage 3 — Product Identification: resolves CUSIP, ticker, or fund code to a product class (trade and account candidates). Can error: PRODUCT_NOT_FOUND.\nStage 4 — Market Product Identification: for market flow/position candidates. Can error: MARKET_PRODUCT_NOT_FOUND.\nStage 5 — Transaction Classification: maps transaction code to trade type and class. Can error: TRANSACTION_CODE_NOT_FOUND.\nStage 6 — Currency Resolution: resolves currency; defaults to USD in single-currency environments.\nStage 7 — Valuation: calculates gross amount using product prices and FX rates. Can error: PRODUCT_PRICE_NOT_FOUND, CURRENCY_VALUE_NOT_FOUND (also called FX_RATE_NOT_FOUND).\nStage 8 — Alias Remapping: normalizes firm, office, and qualifier codes before client attribution. Original values are preserved in *_orig columns.\nStage 9 — Client Attribution: resolves the Firm → Office → Contact hierarchy using the alias table, with optional CCOP fallback. Can error: CLIENT_NOT_FOUND, FIRM_NOT_FOUND, ACCOUNT_NOT_FOUND, ACCOUNTCLIENT_NOT_FOUND.\nStage 10 — Business Rules (FINAL_RULES): applies custom rules from the active Release. Runs after all attribution is complete — this is the most common hook point for custom logic."
+            },
+            {
+              "title": "Types of injectable rules",
+              "content": "Business rules inject custom logic at hook points in the pipeline without code changes. Each rule has three components:\n\nBinding — where and when the rule executes. Hook points include: FINANCIAL_STAGE_0_PRE_INIT (before processing — to exclude candidates), FINANCIAL_STAGE_10_FINAL_RULES (after all stages — the most common), PRE_CREATE / POST_CREATE (entity lifecycle events), and territory-specific hooks.\n\nConditions — which records the rule fires on (AND logic). Types: Audience Selection (JSON Logic expressions e.g. 'gross_amount > 1,000,000'), Pattern Selection (regex matching against a field), Record Selection (batch lookup against another service table), Watchlist Membership.\n\nActions — what happens to matching records. Types:\n— Set Field: update a field value (constant, template, field copy, regex extract/replace)\n— Create Work Item: route for human review with configurable priority (LOW, MEDIUM, HIGH, CRITICAL)\n— Watchlist Action: add/remove from monitoring watchlists\n— Service Action: create or update records in a related table\n— Exclude Candidate: permanently excludes matching candidates (PRE_INIT only)\n\nWorkspace/Release lifecycle: Rules are authored in a Workspace — a temporary, isolated environment for development and testing. When ready, the Workspace is activated and produces a Release. Two activation strategies exist:\n— REPLACE: the workspace rules replace all rules in the matching Release entirely\n— AUGMENT: the workspace rules are merged into the existing Release (new rules added, existing rules updated by ID)\n\nReleases are versioned using Type 2 SCD — each activation clones the Release into a new version, preserving the full history. The current version is always where effective_end_date IS NULL. Old versions are never deleted.\n\nTwo-level priority system: multiple Releases can be active simultaneously. Release priority (higher = executes first) controls the order between Releases. Within each Release, each ReleaseRule has its own priority controlling the order within that Release. This lets a 'Hotfixes' Release (priority 100) layer on top of 'Base Rules' (priority 0) without replacing it."
+            },
+            {
+              "title": "The rule deployment process",
+              "content": "1. Receive the escalated rule change request from the Data Steward.\n2. Draft the new or modified rule in Development.\n3. Test in UAT — verify it produces expected outcomes and no unexpected side effects.\n4. Get sign-off from the Data Steward who escalated the request.\n5. Document the change.\n6. Deploy to Production following your Change & Release Management runbook.\n7. Monitor post-deployment for the first 48 hours."
+            },
+            {
+              "title": "Rollback and version control",
+              "content": "All rules are versioned — each change creates a new version while preserving history.\n\nWhen to roll back: a deployed rule is causing more records to fail, or a Data Steward reports unexpected exceptions that started immediately after deployment.\n\nRollback procedure:\n1. Confirm the issue is caused by the new rule\n2. Revert to the previous version in Production\n3. Document the rollback with reason and timestamp\n4. Notify the Data Steward\n5. Investigate in Dev before attempting a revised deployment"
+            }
+          ],
+          "quiz": [
+            {
+              "q": "A Data Steward escalated a rule change request. What is the correct process?",
+              "opts": [
+                "Implement in Production immediately",
+                "Test in Dev, validate in UAT with the Data Steward, document the change, deploy to Production with approval",
+                "Reject the request — rules can't be changed once configured",
+                "Make the change in UAT only and mark it resolved"
+              ],
+              "a": 1,
+              "exp": "All rule changes follow Dev → UAT → Production."
+            },
+            {
+              "q": "A newly deployed rule is causing unexpected data quality issues in Production. What is the fastest safe resolution?",
+              "opts": [
+                "Delete the rule and all affected records",
+                "Roll back to the previous version immediately, then investigate in Dev/UAT before redeploying",
+                "Leave the rule running and manually fix each affected record",
+                "Disable all rules until the issue is resolved"
+              ],
+              "a": 1,
+              "exp": "Rollback to the last known good version stops the issue immediately."
+            },
+            {
+              "q": "You need to deploy a small change that adds two new rules without removing the existing 15 rules in the Base Rules release. Which workspace strategy do you choose?",
+              "opts": [
+                "REPLACE — to replace all 15 rules with the new ones",
+                "AUGMENT — to merge the two new rules into the existing release, leaving the other 15 unchanged",
+                "Create a new release with a different name",
+                "Edit the rules directly in Production"
+              ],
+              "a": 1,
+              "exp": "AUGMENT merges workspace rules into the existing release. REPLACE would overwrite all 15 existing rules with only the 2 new ones — use REPLACE only when you want to completely redefine the rule set."
+            },
+            {
+              "q": "A rule uses the FINANCIAL_STAGE_0_PRE_INIT hook point. What is its purpose?",
+              "opts": [
+                "Maintenance windows where processing is paused",
+                "To exclude matching candidates from all further processing before any pipeline stages run — excluded candidates produce no fact records and no error queue entry",
+                "Error checkpoints that auto-reject bad records",
+                "Logging events only — no action can be taken at this stage"
+              ],
+              "a": 1,
+              "exp": "FINANCIAL_STAGE_0_PRE_INIT runs before Stage 1. Rules here set override_exclude_flag=True, causing Stage 1 to mark the candidate as 'excluded'. Excluded records are silently dropped — no fact record, no error group. Used for channel filtering, duplicate suppression, and pre-validation."
+            }
+          ]
+        },
+        {
+          "code": "AD 301",
+          "title": "Performance Monitoring & Incident Response",
+          "duration": "1h",
+          "videoUrl": null,
+          "desc": "Monitor system health, analyze logs, and execute incident response procedures.",
+          "lessons": [
+            {
+              "title": "System health monitoring",
+              "content": "Key metrics to monitor:\n\nCPU and memory utilization by microservice — baseline each service's normal range and set alerts for when it exceeds 80%.\n\nAPI response time — increasing response times indicate load issues.\n\nNightly cycle duration — a cycle that normally completes in 2 hours but starts taking 4 hours is a warning sign.\n\nQueue depth — unusually large queues may indicate a processing issue.\n\nIntegration feed status — confirm each feed delivered its expected volume."
+            },
+            {
+              "title": "Log analysis for incident diagnosis",
+              "content": "Log types:\n\nApplication logs — record system events, processing steps, and errors from each microservice.\n\nIntegration logs — record what data was received from each feed, when, and how many records were processed or rejected.\n\nAccess logs — record who logged in, when, and what they accessed.\n\nChange logs — record all configuration changes and administrative actions."
+            },
+            {
+              "title": "Incident classification and escalation",
+              "content": "P1 (Critical) — Production outage or data corruption. Nightly cycle failure blocking financial reporting. 24/7 response.\n\nP2 (High) — Significant functionality degraded. Multiple feeds failing. Response within 2 business hours.\n\nP3 (Medium) — Isolated issues with a workaround. Response within 1 business day.\n\nP4 (Low) — Minor issues with no operational impact. Response within 3-5 business days."
+            },
+            {
+              "title": "The nightly cycle and backup procedures",
+              "content": "A failed nightly cycle means AUM figures haven't updated, new trades haven't been attributed, and compensation calculations may be delayed.\n\nMonitoring steps:\n1. Confirm the cycle began at its scheduled time\n2. Monitor progress — are individual job steps completing on time?\n3. Confirm completion within the expected window\n4. Verify the expected volume of records was promoted\n\nBackup procedures: confirm backup completion daily and test recovery procedures quarterly. A backup you've never tested is a backup you don't actually have."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "The system health dashboard shows memory utilization at 94% for the financial processing service. What do you do?",
+              "opts": [
+                "Ignore it — high memory is normal",
+                "Investigate immediately: check running jobs, review logs for memory leaks, and escalate if approaching 100%",
+                "Restart the entire platform",
+                "Reduce the number of user accounts to free memory"
+              ],
+              "a": 1,
+              "exp": "94% memory is a warning threshold. Early intervention prevents outages."
+            },
+            {
+              "q": "An integration feed silently stopped sending data for 48 hours with no error in the queue. How do you detect this?",
+              "opts": [
+                "Users would have reported it immediately",
+                "Proactive monitoring — volume-based alerts fire when a feed delivers zero records in an unexpected period",
+                "Silent failures are impossible to detect",
+                "Check the feed manually every hour"
+              ],
+              "a": 1,
+              "exp": "Volume-based monitoring alerts catch silent failures before they impact reporting."
+            },
+            {
+              "q": "A P1 incident is declared at 2am — the nightly cycle failed. What is your response?",
+              "opts": [
+                "Wait until business hours",
+                "Follow the documented incident runbook: assess scope, notify escalation contacts, attempt remediation, document all actions with timestamps",
+                "Restart the server and hope for the best",
+                "Manually enter missing data from source files"
+              ],
+              "a": 1,
+              "exp": "Documented runbooks exist for 2am situations. Assess, notify, remediate, document."
+            }
+          ]
+        },
+        {
+          "code": "AD 302",
+          "title": "Audit Readiness & Compliance Management",
+          "duration": "1h",
+          "videoUrl": null,
+          "desc": "Generate audit evidence, respond to auditors, and maintain SOX compliance posture.",
+          "lessons": [
+            {
+              "title": "What auditors look for in Synfinii",
+              "content": "During a SOX audit, IT auditors review three areas:\n\n1. Change Management — can you demonstrate every Production change was tested in UAT and formally approved?\n\n2. Access Control — can you demonstrate only authorized users have appropriate access, reviewed periodically?\n\n3. System Availability — can you demonstrate the system met uptime commitments and incidents were handled according to documented procedures?"
+            },
+            {
+              "title": "Generating an audit evidence package",
+              "content": "Access control evidence:\n— User list with current roles, last login, and provisioning dates\n— Records of access reviews with manager sign-offs\n— Records of accounts deactivated when employees left or changed roles\n\nChange management evidence:\n— Log of all configuration changes during the period\n— UAT test records for each Production change\n— Approval documentation\n\nSystem availability evidence:\n— Uptime metrics, incident log, nightly cycle completion records"
+            },
+            {
+              "title": "Responding to auditor requests",
+              "content": "Respond promptly — 24-48 hour turnaround signals control maturity.\n\nProvide what was asked, not more — over-production can introduce confusion.\n\nNever modify evidence — do not edit logs, backdate documentation, or adjust records. This is fraud.\n\nEscalate unusual requests — if an auditor asks for access beyond the scope of your normal evidence package, escalate to management and legal before providing."
+            },
+            {
+              "title": "Maintaining ongoing compliance posture",
+              "content": "Monthly: review and update the user access list. Confirm all configuration changes are documented. Verify backup completion.\n\nQuarterly: conduct formal access reviews with manager sign-offs. Review and update the Platform Playbook. Test the incident response runbook.\n\nAnnually: full review of RBAC role definitions. Full review of all active integration feeds. Review of rule engine configurations for any legacy rules still active."
+            }
+          ],
+          "quiz": [
+            {
+              "q": "An auditor requests evidence that no unauthorized changes were made to user access in Q3. What do you provide?",
+              "opts": [
+                "A list of all current users",
+                "The access change logs for Q3 — showing every provisioning action, who performed it, when, and what approval was obtained",
+                "A report of all trades processed in Q3",
+                "The Data Steward's exception resolution history"
+              ],
+              "a": 1,
+              "exp": "Access change logs show the full audit trail of every account creation, role change, and deactivation."
+            },
+            {
+              "q": "What is an 'audit evidence package' and when should you be able to produce one?",
+              "opts": [
+                "A quarterly report submitted to regulators automatically",
+                "A compiled set of logs and documentation that proves controls operated effectively — producible on demand at any time",
+                "A document created only when an audit is formally announced",
+                "A backup of the entire database"
+              ],
+              "a": 1,
+              "exp": "Audit readiness means producing evidence at any time — not just during audit season."
+            },
+            {
+              "q": "During an audit, the auditor finds a Production change with no corresponding UAT test record. What is this classified as?",
+              "opts": [
+                "A minor administrative oversight",
+                "A Change Management control failure — a formal audit finding that requires remediation",
+                "Normal — small changes don't need UAT documentation",
+                "Only a problem if the change caused an error"
+              ],
+              "a": 1,
+              "exp": "Any Production change without documented UAT testing is a Change Management control failure under SOX ITGCs."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
